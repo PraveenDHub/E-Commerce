@@ -1,0 +1,128 @@
+npm init -y
+If the whole file formatting gets messy, use:
+
+Format document
+
+Windows:  Shift + Alt + F
+
+⚡ If it still doesn’t work
+
+Press:
+
+Ctrl + Shift + P
+
+Then type:
+
+Join Lines
+
+and select it. That runs the command manually.
+
+
+3. Shortcut key for opening the terminal  ctrl + Swift  + `
+
+
+frontend 
+npm create vite@latest .
+npm i lucide-react react-router-dom react-hot-toast 
+
+
+These feild must needed for automatic save after one second
+
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000
+
+npm install @reduxjs/toolkit react-redux
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if axios success 
+AxiosResponse {
+  data: {                           
+    users: [
+      { id: 1, name: "Alice", email: "alice@example.com" },
+      { id: 2, name: "Bob",   email: "bob@example.com"   },
+      ...
+    ],
+    total: 42,
+    page: 1
+  },
+  status: 200,
+  statusText: "OK",
+  headers: {
+    content-type: "application/json; charset=utf-8",
+    content-length: "512",
+    date: "Tue, 18 Mar 2026 10:49:00 GMT",
+    ...
+  },
+  config: {
+    transitional: { ... },
+    adapter: [Function: httpAdapter],
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 0,
+    xsrfCookieName: "XSRF-TOKEN",
+    xsrfHeaderName: "X-XSRF-TOKEN",
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    validateStatus: [Function: validateStatus],
+    headers: {
+      Accept: "application/json, text/plain, */*",
+      "User-Agent": "axios/1.7.7"
+    },
+    method: "get",
+    url: "https://api.example.com/users"
+  },
+  request: XMLHttpRequest { ... }   
+}
+
+
+
+if axios fails
+AxiosError {
+  message: "Request failed with status code 404",    
+  name: "AxiosError",
+  code: "ERR_BAD_REQUEST",                           
+  config: { ...same as above... },
+  request: XMLHttpRequest { ... },
+  response: {                                        
+    data: {
+      error: "Not Found",
+      message: "Resource /users not found"
+    },
+    status: 404,
+    statusText: "Not Found",
+    headers: { ... },
+    config: { ... },
+    request: { ... }
+  },
+  isAxiosError: true,
+  toJSON: [Function: toJSON]
+}

@@ -1,6 +1,7 @@
 import express from "express";
 import { roleBasedAccess, verifyUser } from "../helper/userAuth.js";
 import {
+  cancelOrder,
   createNewOrder,
   deleteOrderbyAdmin,
   getAllOrders,
@@ -11,9 +12,10 @@ import {
 
 const router = express.Router();
 //user
-router.route("/new/order").post(verifyUser, createNewOrder);
+router.route("/order/new").post(verifyUser, createNewOrder);
 router.route("/order/:id").get(verifyUser, getOrderDetails);
 router.route("/orders/user").get(verifyUser, getAllOrders);
+router.patch("/order/:id/cancel", verifyUser, cancelOrder);
 
 //admin routes
 router

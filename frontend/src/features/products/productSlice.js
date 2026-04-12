@@ -3,16 +3,16 @@ import axios from "axios";
 
 export const getProducts = createAsyncThunk(
   "product/getProducts",
-  async ({ keyword = "", page = 1,category = "" } = {}, { rejectWithValue }) => {
+  async (
+    { keyword = "", page = 1, category = "" } = {},
+    { rejectWithValue },
+  ) => {
     try {
-      // const link = keyword
-      //   ? `/api/v1/products?keyword=${encodeURIComponent(keyword)}&page=${page}`
-      //   : `/api/v1/products?page=${page}`;
       let link = `/api/v1/products?page=${page}`;
-      if(keyword){
+      if (keyword) {
         link += `&keyword=${encodeURIComponent(keyword)}`;
       }
-      if(category){
+      if (category) {
         link += `&category=${encodeURIComponent(category)}`;
       }
       const { data } = await axios.get(link);
@@ -36,6 +36,19 @@ export const getProductDetails = createAsyncThunk(
   },
 );
 
+export const createReview = createAsyncThunk(
+  "product/createReview",
+  async ({ productId, rating, comment }, { rejectWithValue }) => {
+    try {
+      const link = `/api/v1/review`;
+      const { data } = await axios.put(link, { productId, rating, comment });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Something went wrong");
+    }
+  },
+);
+
 //create slice
 const productSlice = createSlice({
   name: "product",
@@ -48,10 +61,16 @@ const productSlice = createSlice({
     product: null,
     resPerPage: 4,
     totalPages: 0,
+    success: false,
+    message: null,
   },
   reducers: {
     removeError: (state) => {
       state.error = null;
+    },
+    clearSuccess: (state) => {
+      state.success = false;
+      state.message = null;
     },
   },
   extraReducers: (builder) => {
@@ -87,9 +106,25 @@ const productSlice = createSlice({
       .addCase(getProductDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Something went wrong";
+      })
+      // 🔥 CREATE REVIEW
+      .addCase(createReview.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createReview.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.product = action.payload.product;
+        state.success = true;
+        state.message = action.payload?.message;
+      })
+      .addCase(createReview.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Something went wrong";
       });
   },
 });
 
-export const { removeError } = productSlice.actions;
+export const { removeError, clearSuccess } = productSlice.actions;
 export default productSlice.reducer;

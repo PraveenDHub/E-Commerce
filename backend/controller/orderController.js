@@ -2,6 +2,7 @@ import HandleError from "../helper/handleError.js";
 import Order from "../model/orderModel.js";
 import mongoose from "mongoose";
 import Product from "../model/productModel.js";
+import User from '../model/userModel.js';
 
 export const createNewOrder = async (req, res) => {
   const {
@@ -25,6 +26,12 @@ export const createNewOrder = async (req, res) => {
     paidAt: Date.now(),
     user: req.user._id,
   });
+
+  // 2. 🔥 CLEAR USER CART
+    const user = await User.findById(req.user.id);
+    user.cartItems = [];
+    await user.save();
+
   res.status(201).json({
     success: true,
     order,
@@ -57,6 +64,36 @@ export const getAllOrders = async (req, res, next) => {
   });
 };
 
+export const cancelOrder = async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return res.status(404).json({ message: "Order not found" });
+  }
+
+  // ❌ Don't allow cancel if already delivered
+  if (order.orderStatus === "Delivered") {
+    return res.status(400).json({
+      message: "Order already delivered, cannot cancel",
+    });
+  }
+
+  // ❌ Don't cancel again
+  if (order.orderStatus === "Cancelled") {
+    return res.status(400).json({
+      message: "Order already cancelled",
+    });
+  }
+
+  order.orderStatus = "Cancelled";
+  await order.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Order cancelled successfully",
+  });
+};
+
 export const getAllOrdersbyAdmin = async (req, res, next) => {
   const orders = await Order.find().populate("user", "name email");
   if (!orders) {
@@ -80,9 +117,13 @@ export const deleteOrderbyAdmin = async (req, res, next) => {
   if (!order) {
     return next(new HandleError("Order not found with this id", 404));
   }
-  if (order.orderStatus.toLowerCase() !== "delivered") {
-    return next( new HandleError( " Order is under processing so cannot be cancelled!", 400));
+  const status = order.orderStatus.toLowerCase();
+
+  if (status !== "delivered" && status !== "cancelled") {
+    return next(
+      new HandleError( "Only delivered or cancelled orders can be deleted!", 400 ) );
   }
+  //order.orderStatus.toLowerCase()
   // order.orderStatus = "Cancelled";
   // await order.save();
   //await order.deleteOne(); // Remove the order from the database
@@ -104,12 +145,16 @@ export const updateOrderStatusbyAdmin = async (req, res, next) => {
   }
 
   // Check if the order is already been delivered
-  if (order.orderStatus.toLowerCase() === "delivered" || order.orderStatus.toLowerCase() === "processing") {
-    return next(new HandleError("Order is already been delivered! or Order is processing", 400));
+  if (order.orderStatus.toLowerCase() === "delivered") {
+    return next(
+      new HandleError("Order already delivered, cannot update", 400)
+    );
   }
 
   // [Promise, Promise, Promise] => wait for all the promises to resolve before proceeding
-  await Promise.all( order.orderItems.map((item) => updateQuantity(item.product, item.quantity)), ); // Update the product stock based on the order items
+  if(req.body.status.toLowerCase() === "delivered"){
+    await Promise.all( order.orderItems.map((item) => updateQuantity(item.product, item.quantity)), ); // Update the product stock based on the order items
+  }
   order.orderStatus = req.body.status || order.orderStatus; // undefined || oldStatus
   if (order.orderStatus.toLowerCase() === "delivered") {
     order.deliveredAt = Date.now();

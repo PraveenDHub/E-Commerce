@@ -33,6 +33,7 @@ const Products = () => {
     const handleCategoryClick = (cat) => {
       const params = new URLSearchParams(searchParams);
       if(cat === "All"){
+        params.delete("keyword");
         params.delete("category");
       }else{
         params.set("category", cat);
@@ -57,7 +58,7 @@ const Products = () => {
                       <div className="bg-white p-6 rounded-lg shadow-md sticky top-20">
                         <h2 className="text-xl font-semibold border-b border-slate-200 mb-4 pb-4">Categories</h2>
                         <ul className="space-y-2">
-                          {["All", "Electronics", "Fashion", "Footwear", "Home & Kitchen", "Sports & Fitness" ].map((cat)=>(
+                          {["All", "Electronics", "Fashion", "Home & Kitchen", "Beauty", "Sports" ].map((cat)=>(
                             <li key={cat} onClick={()=>handleCategoryClick(cat) }>
                               <button className="text-left w-full hover:bg-slate-100 px-2 py-1 rounded">{cat}</button>
                             </li>

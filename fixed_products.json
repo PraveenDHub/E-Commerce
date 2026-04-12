@@ -1,0 +1,639 @@
+[
+  {
+    "name": "Smartwatch Pro",
+    "description": "Premium smartwatch with health tracking, notifications, and long battery life.",
+    "mrp": 2499,
+    "price": 1799,
+    "category": "Electronics",
+    "stock": 45,
+    "ratings": 4.6,
+    "numOfReviews": 2,
+    "images": [{ "url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30" }],
+    "reviews": [
+      {
+        "name": "Rahul Sharma",
+        "rating": 5,
+        "comment": "Excellent smartwatch! Battery lasts more than a week.",
+        "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+        "createdAt": "2025-03-20T00:00:00.000Z"
+      },
+      {
+        "name": "Priya Nair",
+        "rating": 4,
+        "comment": "Good product but heart rate sensor could be more accurate.",
+        "avatar": "https://randomuser.me/api/portraits/women/45.jpg",
+        "createdAt": "2025-03-22T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-15T00:00:00.000Z"
+  },
+  {
+    "name": "Noise Cancelling Earbuds",
+    "description": "Wireless earbuds with active noise cancellation and superior sound quality.",
+    "mrp": 3299,
+    "price": 2199,
+    "category": "Electronics",
+    "stock": 78,
+    "ratings": 4.7,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb" }],
+    "reviews": [
+      {
+        "name": "Arjun Reddy",
+        "rating": 5,
+        "comment": "Best earbuds in this price range. Noise cancellation is superb!",
+        "avatar": "https://randomuser.me/api/portraits/men/67.jpg",
+        "createdAt": "2025-03-25T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-18T00:00:00.000Z"
+  },
+  {
+    "name": "Bluetooth Speaker",
+    "description": "Portable waterproof Bluetooth speaker with deep bass and 12-hour playback.",
+    "mrp": 1999,
+    "price": 1299,
+    "category": "Electronics",
+    "stock": 62,
+    "ratings": 4.5,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1" }],
+    "reviews": [
+      {
+        "name": "Sneha Patel",
+        "rating": 4,
+        "comment": "Sound quality is very good for outdoor use.",
+        "avatar": "https://randomuser.me/api/portraits/women/22.jpg",
+        "createdAt": "2025-03-15T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-10T00:00:00.000Z"
+  },
+  {
+    "name": "Gaming Mouse",
+    "description": "Ergonomic RGB gaming mouse with 16000 DPI and ultra-fast response.",
+    "mrp": 1499,
+    "price": 999,
+    "category": "Electronics",
+    "stock": 134,
+    "ratings": 4.8,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1613141412501-9012977f1969?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }],
+    "reviews": [
+      {
+        "name": "Vikram Singh",
+        "rating": 5,
+        "comment": "Very responsive and comfortable for long gaming sessions.",
+        "avatar": "https://randomuser.me/api/portraits/men/51.jpg",
+        "createdAt": "2025-03-28T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-20T00:00:00.000Z"
+  },
+  {
+    "name": "4K Smart TV 55 inch",
+    "description": "Ultra HD Smart LED TV with voice control and Netflix built-in.",
+    "mrp": 45999,
+    "price": 32999,
+    "category": "Electronics",
+    "stock": 23,
+    "ratings": 4.4,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1593784991095-a205069470b6" }],
+    "reviews": [
+      {
+        "name": "Ananya Rao",
+        "rating": 4,
+        "comment": "Picture quality is awesome at this price.",
+        "avatar": "https://randomuser.me/api/portraits/women/68.jpg",
+        "createdAt": "2025-03-18T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-02-28T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Keyboard & Mouse Combo",
+    "description": "Slim ergonomic keyboard and mouse set for office and home use.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Electronics",
+    "stock": 95,
+    "ratings": 4.3,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1587829741301-dc798e83add3" }],
+    "reviews": [
+      {
+        "name": "Karthik Menon",
+        "rating": 4,
+        "comment": "Comfortable and smooth typing experience.",
+        "avatar": "https://randomuser.me/api/portraits/men/12.jpg",
+        "createdAt": "2025-03-24T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-22T00:00:00.000Z"
+  },
+  {
+    "name": "Men's Slim Fit Jeans",
+    "description": "Premium stretchable dark blue slim fit jeans for everyday wear.",
+    "mrp": 1899,
+    "price": 999,
+    "category": "Fashion",
+    "stock": 210,
+    "ratings": 4.5,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1542272604-787c3835535d" }],
+    "reviews": [
+      {
+        "name": "Rohan Kapoor",
+        "rating": 5,
+        "comment": "Perfect fit and great quality fabric.",
+        "avatar": "https://randomuser.me/api/portraits/men/33.jpg",
+        "createdAt": "2025-03-20T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-12T00:00:00.000Z"
+  },
+  {
+    "name": "Women's Floral Maxi Dress",
+    "description": "Beautiful summer floral print maxi dress with comfortable fabric.",
+    "mrp": 2299,
+    "price": 1399,
+    "category": "Fashion",
+    "stock": 87,
+    "ratings": 4.6,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae" }],
+    "reviews": [
+      {
+        "name": "Meera Iyer",
+        "rating": 5,
+        "comment": "So pretty and comfortable! Got many compliments.",
+        "avatar": "https://randomuser.me/api/portraits/women/19.jpg",
+        "createdAt": "2025-03-25T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-19T00:00:00.000Z"
+  },
+  {
+    "name": "Unisex Hooded Sweatshirt",
+    "description": "Soft cotton oversized hoodie perfect for casual and street style.",
+    "mrp": 1499,
+    "price": 899,
+    "category": "Fashion",
+    "stock": 156,
+    "ratings": 4.7,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7" }],
+    "reviews": [
+      {
+        "name": "Siddharth Bose",
+        "rating": 5,
+        "comment": "Super soft and warm. Best hoodie I bought recently.",
+        "avatar": "https://randomuser.me/api/portraits/men/44.jpg",
+        "createdAt": "2025-03-15T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-05T00:00:00.000Z"
+  },
+  {
+    "name": "Leather Wallet for Men",
+    "description": "Genuine leather bifold wallet with RFID blocking.",
+    "mrp": 999,
+    "price": 599,
+    "category": "Fashion",
+    "stock": 320,
+    "ratings": 4.4,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1627123424574-724758594e93" }],
+    "reviews": [
+      {
+        "name": "Aditya Verma",
+        "rating": 4,
+        "comment": "Good quality leather and slim design.",
+        "avatar": "https://randomuser.me/api/portraits/men/55.jpg",
+        "createdAt": "2025-03-28T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-25T00:00:00.000Z"
+  },
+  {
+    "name": "Stainless Steel Water Bottle",
+    "description": "Insulated 1L water bottle keeps drinks hot or cold for 24 hours.",
+    "mrp": 899,
+    "price": 549,
+    "category": "Home & Kitchen",
+    "stock": 180,
+    "ratings": 4.8,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8" }],
+    "reviews": [
+      {
+        "name": "Neha Sharma",
+        "rating": 5,
+        "comment": "Keeps water cold for long hours. Highly recommend!",
+        "avatar": "https://randomuser.me/api/portraits/women/34.jpg",
+        "createdAt": "2025-03-18T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-08T00:00:00.000Z"
+  },
+  {
+    "name": "Non-Stick Cookware Set",
+    "description": "10-piece induction compatible non-stick cookware set.",
+    "mrp": 3999,
+    "price": 2499,
+    "category": "Home & Kitchen",
+    "stock": 64,
+    "ratings": 4.5,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://plus.unsplash.com/premium_photo-1664391825760-17aacf4cb3b4?q=80&w=775&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }],
+    "reviews": [
+      {
+        "name": "Ramesh Kumar",
+        "rating": 4,
+        "comment": "Non-stick works really well.",
+        "avatar": "https://randomuser.me/api/portraits/men/28.jpg",
+        "createdAt": "2025-03-22T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-14T00:00:00.000Z"
+  },
+  {
+    "name": "Aromatherapy Essential Oil Diffuser",
+    "description": "Ultrasonic humidifier diffuser with 7 LED colors.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Home & Kitchen",
+    "stock": 143,
+    "ratings": 4.6,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7" }],
+    "reviews": [
+      {
+        "name": "Swati Malhotra",
+        "rating": 5,
+        "comment": "Looks beautiful and works quietly.",
+        "avatar": "https://randomuser.me/api/portraits/women/52.jpg",
+        "createdAt": "2025-03-26T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-21T00:00:00.000Z"
+  },
+  {
+    "name": "Memory Foam Pillow",
+    "description": "Orthopedic cervical memory foam pillow for neck pain relief.",
+    "mrp": 1499,
+    "price": 899,
+    "category": "Home & Kitchen",
+    "stock": 98,
+    "ratings": 4.7,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://plus.unsplash.com/premium_photo-1723834562784-a56d7b234360?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }],
+    "reviews": [
+      {
+        "name": "Deepak Rao",
+        "rating": 5,
+        "comment": "Best pillow for neck pain. Sleeping much better now.",
+        "avatar": "https://randomuser.me/api/portraits/men/41.jpg",
+        "createdAt": "2025-03-20T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-16T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Vacuum Cleaner",
+    "description": "Cordless handheld vacuum cleaner with powerful suction.",
+    "mrp": 5999,
+    "price": 3999,
+    "category": "Home & Kitchen",
+    "stock": 41,
+    "ratings": 4.3,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64" }],
+    "reviews": [
+      {
+        "name": "Pooja Reddy",
+        "rating": 4,
+        "comment": "Suction power is good for daily cleaning.",
+        "avatar": "https://randomuser.me/api/portraits/women/61.jpg",
+        "createdAt": "2025-03-29T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-23T00:00:00.000Z"
+  },
+  {
+    "name": "Vitamin C Serum",
+    "description": "Brightening 20% Vitamin C facial serum for glowing skin.",
+    "mrp": 899,
+    "price": 599,
+    "category": "Beauty",
+    "stock": 267,
+    "ratings": 4.6,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1723951174326-2a97221d3b7f?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }],
+    "reviews": [
+      {
+        "name": "Shalini Nair",
+        "rating": 5,
+        "comment": "Skin feels brighter after 2 weeks of use.",
+        "avatar": "https://randomuser.me/api/portraits/women/29.jpg",
+        "createdAt": "2025-03-21T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-11T00:00:00.000Z"
+  },
+  {
+    "name": "Matte Lipstick Set",
+    "description": "Long-lasting 6 shade matte lipstick collection.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Beauty",
+    "stock": 189,
+    "ratings": 4.5,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1606231567442-1c00323181e7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }],
+    "reviews": [
+      {
+        "name": "Lavanya Menon",
+        "rating": 4,
+        "comment": "Colors are beautiful and long lasting.",
+        "avatar": "https://randomuser.me/api/portraits/women/71.jpg",
+        "createdAt": "2025-03-23T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-17T00:00:00.000Z"
+  },
+  {
+    "name": "Electric Hair Straightener",
+    "description": "Ceramic hair straightener with temperature control.",
+    "mrp": 1899,
+    "price": 1199,
+    "category": "Beauty",
+    "stock": 76,
+    "ratings": 4.4,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1" }],
+    "reviews": [
+      {
+        "name": "Divya Sharma",
+        "rating": 5,
+        "comment": "Works smoothly and doesn't damage hair.",
+        "avatar": "https://randomuser.me/api/portraits/women/15.jpg",
+        "createdAt": "2025-03-19T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-09T00:00:00.000Z"
+  },
+  {
+    "name": "Cricket Bat",
+    "description": "English willow cricket bat with lightweight design.",
+    "mrp": 2499,
+    "price": 1799,
+    "category": "Sports",
+    "stock": 52,
+    "ratings": 4.7,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1758791184255-411236a49346?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }],
+    "reviews": [
+      {
+        "name": "Aarav Patel",
+        "rating": 5,
+        "comment": "Great bat for intermediate players.",
+        "avatar": "https://randomuser.me/api/portraits/men/48.jpg",
+        "createdAt": "2025-03-30T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-24T00:00:00.000Z"
+  },
+  {
+    "name": "Yoga Mat Premium",
+    "description": "Eco-friendly non-slip 6mm thick yoga mat with carrying strap.",
+    "mrp": 999,
+    "price": 649,
+    "category": "Sports",
+    "stock": 312,
+    "ratings": 4.8,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f" }],
+    "reviews": [
+      {
+        "name": "Anika Gupta",
+        "rating": 5,
+        "comment": "Perfect thickness and very good grip.",
+        "avatar": "https://randomuser.me/api/portraits/women/38.jpg",
+        "createdAt": "2025-03-17T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-07T00:00:00.000Z"
+  },
+  {
+    "name": "Running Shoes",
+    "description": "Lightweight breathable running shoes with excellent cushioning.",
+    "mrp": 3299,
+    "price": 2199,
+    "category": "Sports",
+    "stock": 124,
+    "ratings": 4.6,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff" }],
+    "reviews": [
+      {
+        "name": "Rohit Sharma",
+        "rating": 5,
+        "comment": "Very comfortable for daily runs.",
+        "avatar": "https://randomuser.me/api/portraits/men/63.jpg",
+        "createdAt": "2025-04-01T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-26T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Fitness Tracker",
+    "description": "Advanced fitness band with heart rate and sleep monitoring.",
+    "mrp": 2499,
+    "price": 1699,
+    "category": "Electronics",
+    "stock": 88,
+    "ratings": 4.5,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1575311373937-040b8e2f8b6f" }],
+    "reviews": [
+      {
+        "name": "Tarun Nair",
+        "rating": 4,
+        "comment": "Accurate tracking and good battery life.",
+        "avatar": "https://randomuser.me/api/portraits/men/27.jpg",
+        "createdAt": "2025-04-02T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-28T00:00:00.000Z"
+  },
+  {
+    "name": "Denim Jacket",
+    "description": "Classic unisex denim jacket with vintage wash.",
+    "mrp": 2199,
+    "price": 1499,
+    "category": "Fashion",
+    "stock": 67,
+    "ratings": 4.6,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1551537482-f2075a1d41b2" }],
+    "reviews": [
+      {
+        "name": "Saanvi Reddy",
+        "rating": 5,
+        "comment": "Looks stylish and fits perfectly.",
+        "avatar": "https://randomuser.me/api/portraits/women/47.jpg",
+        "createdAt": "2025-04-01T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-27T00:00:00.000Z"
+  },
+  {
+    "name": "Electric Kettle 1.8L",
+    "description": "Stainless steel electric kettle with auto shut-off.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Home & Kitchen",
+    "stock": 203,
+    "ratings": 4.4,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a9c" }],
+    "reviews": [
+      {
+        "name": "Manoj Pillai",
+        "rating": 4,
+        "comment": "Boils water fast and safe to use.",
+        "avatar": "https://randomuser.me/api/portraits/men/39.jpg",
+        "createdAt": "2025-04-03T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-29T00:00:00.000Z"
+  },
+  {
+    "name": "Face Moisturizer",
+    "description": "Hydrating day cream with SPF 30 for all skin types.",
+    "mrp": 699,
+    "price": 449,
+    "category": "Beauty",
+    "stock": 345,
+    "ratings": 4.7,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1629051192950-d251e96ab1b0?q=80&w=732&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }],
+    "reviews": [
+      {
+        "name": "Riya Kapoor",
+        "rating": 5,
+        "comment": "Lightweight and non-greasy. Perfect for daily use.",
+        "avatar": "https://randomuser.me/api/portraits/women/55.jpg",
+        "createdAt": "2025-04-02T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-30T00:00:00.000Z"
+  },
+  {
+    "name": "Badminton Racket",
+    "description": "Professional carbon fiber badminton racket with cover.",
+    "mrp": 1499,
+    "price": 999,
+    "category": "Sports",
+    "stock": 91,
+    "ratings": 4.5,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1626248801372-9e1f3f0e6f6f" }],
+    "reviews": [
+      {
+        "name": "Pranav Menon",
+        "rating": 4,
+        "comment": "Lightweight and good control.",
+        "avatar": "https://randomuser.me/api/portraits/men/62.jpg",
+        "createdAt": "2025-04-04T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-04-01T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Over-Ear Headphones",
+    "description": "Comfortable noise cancelling over-ear Bluetooth headphones.",
+    "mrp": 3999,
+    "price": 2599,
+    "category": "Electronics",
+    "stock": 54,
+    "ratings": 4.8,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e" }],
+    "reviews": [
+      {
+        "name": "Kiran Rao",
+        "rating": 5,
+        "comment": "Noise cancellation is top class!",
+        "avatar": "https://randomuser.me/api/portraits/men/18.jpg",
+        "createdAt": "2025-04-03T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-04-02T00:00:00.000Z"
+  },
+  {
+    "name": "Cargo Pants",
+    "description": "Relaxed fit multi-pocket cargo pants for men.",
+    "mrp": 1699,
+    "price": 1099,
+    "category": "Fashion",
+    "stock": 132,
+    "ratings": 4.4,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1541099649105-f69ad21f864f" }],
+    "reviews": [
+      {
+        "name": "Vishal Kumar",
+        "rating": 4,
+        "comment": "Good quality and lots of pockets.",
+        "avatar": "https://randomuser.me/api/portraits/men/74.jpg",
+        "createdAt": "2025-04-04T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-04-03T00:00:00.000Z"
+  },
+  {
+    "name": "Air Fryer 5L",
+    "description": "Digital air fryer with 8 preset cooking modes.",
+    "mrp": 5999,
+    "price": 4299,
+    "category": "Home & Kitchen",
+    "stock": 37,
+    "ratings": 4.6,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1585504217863-0f5f2c4b6d4b" }],
+    "reviews": [
+      {
+        "name": "Sunita Iyer",
+        "rating": 5,
+        "comment": "Healthy cooking made easy. Love it!",
+        "avatar": "https://randomuser.me/api/portraits/women/64.jpg",
+        "createdAt": "2025-04-02T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-03-31T00:00:00.000Z"
+  },
+  {
+    "name": "Sunscreen SPF 50",
+    "description": "Broad spectrum waterproof sunscreen lotion.",
+    "mrp": 599,
+    "price": 399,
+    "category": "Beauty",
+    "stock": 278,
+    "ratings": 4.5,
+    "numOfReviews": 1,
+    "images": [{ "url": "https://images.unsplash.com/photo-1556228578-0d9b5d6a8c8c" }],
+    "reviews": [
+      {
+        "name": "Nandini Sharma",
+        "rating": 4,
+        "comment": "Doesn't leave white cast. Good for daily use.",
+        "avatar": "https://randomuser.me/api/portraits/women/81.jpg",
+        "createdAt": "2025-04-03T00:00:00.000Z"
+      }
+    ],
+    "createdAt": "2025-04-04T00:00:00.000Z"
+  }
+]

@@ -12,15 +12,22 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
+    "@stripe/react-stripe-js": "^6.1.0",
+    "@stripe/stripe-js": "^9.1.0",
     "@tailwindcss/vite": "^4.2.1",
     "axios": "^1.13.6",
+    "countries-list": "^3.3.0",
+    "framer-motion": "^12.38.0",
     "lucide-react": "^0.577.0",
     "nodemon": "^3.1.14",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.2.0",
     "react-hot-toast": "^2.6.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.13.1",
+    "recharts": "^3.8.1",
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {

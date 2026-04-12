@@ -13,6 +13,8 @@ import PageTitle from "../components/PageTitle";
 import Ratings from "../components/Ratings";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clearSuccess,
+  createReview,
   getProductDetails,
   removeError,
 } from "../features/products/productSlice";
@@ -20,12 +22,31 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { calculateDiscount, formatDate } from "../utils/formatter";
+import {
+  addToCartAPI,
+  updateCartAPI,
+} from "../features/products/Cart/cartSlice.js";
 
 const ProductDetails = () => {
-  const [userRating,setUserRating] = useState(0);
+  const [userRating, setUserRating] = useState(0);
+  const [comment, setComment] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { product, loading, error } = useSelector((state) => state.product);
+  const { product, loading, error, success, message } = useSelector(
+    (state) => state.product,
+  );
+  const { cartItems } = useSelector((state) => state.cart);
+  const cartItem = cartItems.find((i) => i._id === product?._id);
+  useEffect(() => {
+    if (success) {
+      toast.success(message);
+      dispatch(clearSuccess());
+      dispatch(getProductDetails(product._id));
+
+      setUserRating(0);
+      setComment("");
+    }
+  }, [success, message, dispatch, product?._id]);
   useEffect(() => {
     if (id) {
       dispatch(getProductDetails(id));
@@ -38,6 +59,23 @@ const ProductDetails = () => {
       dispatch(removeError());
     }
   }, [error, dispatch]);
+
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+
+    if (userRating === 0) {
+      toast.error("Please select a rating");
+      return;
+    }
+
+    if (!comment) {
+      toast.error("Please enter a comment");
+      return;
+    }
+    dispatch(
+      createReview({ productId: product._id, rating: userRating, comment }),
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -63,7 +101,8 @@ const ProductDetails = () => {
             </h2>
             <div className="flex items-center gap-4 mb-4">
               <Ratings value={product?.ratings} disabled={true} />
-              <span className="text-sm font-medium text-gray-500">{product?.numOfReviews} Verified Reviews
+              <span className="text-sm font-medium text-gray-500">
+                {product?.numOfReviews} Verified Reviews
               </span>
             </div>
             <div className="flex items-baseline gap-3 mb-6">
@@ -105,60 +144,113 @@ const ProductDetails = () => {
               {product?.stock > 0 && (
                 <div className="flex flex-wrap items-center gap-5">
                   <div className="items-center border-2 border-slate-300 rounded-md flex">
-                    <button className="p-4 text-sm hover:text-amber-500 transition-colors">
+                    <button
+                      onClick={() => {
+                        dispatch(increaseQty(product._id));
+                      }}
+                      className="p-4 text-sm hover:text-amber-500 transition-colors"
+                    >
                       <Plus size={20} />
                     </button>
                     <span className="text-gray-600 p-4 font-bold w-15 text-center text-sm hover:text-amber-500 transition-colors">
-                      1
+                      {cartItem?.quantity || 1}
                     </span>
-                    <button className="p-4 text-sm hover:text-amber-500 transition-colors">
+                    <button
+                      onClick={() => {
+                        dispatch(decreaseQty(product._id));
+                      }}
+                      className="p-4 text-sm hover:text-amber-500 transition-colors"
+                    >
                       <Minus size={20} />
                     </button>
                   </div>
-                  <button className="bg-blue-600 flex justify-center gap-2 items-center flex-1 text-white p-4 text-sm font-semibold rounded-md hover:bg-blue-700 transition-all duration-300 active:scale-95">
+                  <button
+                    onClick={() => {
+                      dispatch(
+                        addToCartAPI({ productId: product._id, quantity: 1 }),
+                      );
+                    }}
+                    className="bg-blue-600 flex justify-center gap-2 items-center flex-1 text-white p-4 text-sm font-semibold rounded-md hover:bg-blue-700 transition-all duration-300 active:scale-95"
+                  >
                     <ShoppingCart size={20} />
-                    Add to Cart
+                    {cartItem ? "Update Cart" : "Add to Cart"}
                   </button>
                 </div>
               )}
             </div>
             {/* User Reviews*/}
-            <form className="bg-slate-100 p-6 rounded-2xl border border-slate-100 mt-8">
-              <h2 className="text-md font-semibold mb-4 tracking-tight text-slate-800 uppercase flex items-center gap-2"><MessageSquare size={18} className="text-amber-500"/>Share Your Feedback</h2>
+            <form
+              onSubmit={handleReviewSubmit}
+              className="bg-slate-100 p-6 rounded-2xl border border-slate-100 mt-8"
+            >
+              <h2 className="text-md font-semibold mb-4 tracking-tight text-slate-800 uppercase flex items-center gap-2">
+                <MessageSquare size={18} className="text-amber-500" />
+                Share Your Feedback
+              </h2>
               <div>
-                <Ratings value={userRating} disabled={false} onRatingChange={(rating)=>setUserRating(rating)}/>
+                <Ratings
+                  value={userRating}
+                  disabled={false}
+                  onRatingChange={(rating) => setUserRating(rating)}
+                />
               </div>
-              <textarea placeholder=" How was the product quality and delivery!" className="w-full p-4 border border-slate-300 rounded-2xl mt-4 focus:outline-none focus:border-amber-500 transition-colors min-h-24"></textarea>
-              <button className="bg-slate-900 w-full mt-4 gap-2 items-center flex-1 text-white p-4 text-sm font-semibold rounded-2xl hover:bg-slate-800 transition-all duration-300 shadow-lg shadow-slate-900/50">Post review</button>
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder=" How was the product quality and delivery!"
+                className="w-full p-4 border border-slate-300 rounded-2xl mt-4 focus:outline-none focus:border-amber-500 transition-colors min-h-24"
+              ></textarea>
+              <button
+                type="submit"
+                className="bg-slate-900 w-full mt-4 gap-2 items-center flex-1 text-white p-4 text-sm font-semibold rounded-2xl hover:bg-slate-800 transition-all duration-300 shadow-lg shadow-slate-900/50"
+              >
+                Post review
+              </button>
             </form>
           </div>
         </div>
         {/*Reviews Section*/}
         <div className="mt-12">
           <div className="mb-8">
-            <h2 className="text-2xl border-l-4 border-amber-500 pl-4 rounded-sm font-bold text-gray-900">Customer Stories</h2>
+            <h2 className="text-2xl border-l-4 border-amber-500 pl-4 rounded-sm font-bold text-gray-900">
+              Customer Stories
+            </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {product?.reviews?.map((review,index) => (
-              <div key={index} className="bg-white p-8 rounded-2xl border border-gray-100 hover:border-amber-200 transition-all duration-300 shadow-sm group">
-
+            {product?.reviews?.map((review, index) => (
+              <div
+                key={index}
+                className="bg-white p-8 rounded-2xl border border-gray-100 hover:border-amber-200 transition-all duration-300 shadow-sm group"
+              >
                 <div className="flex items-start justify-between mb-6">
                   <div className="flex items-center gap-4">
                     <div className="rounded-full ring ring-gray-200 group-hover:ring-amber-500 transition-all duration-300 w-12 h-12 overflow-hidden">
-                      <img src={review?.avatar} alt={review?.name} className="w-full h-full object-cover"/>
+                      <img
+                        src={
+                          review?.user?.avatar?.url ||
+                          "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        }
+                        alt={review?.user?.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold text-gray-900">{review?.name}</h2>
+                      <h2 className="text-lg font-bold text-gray-900">
+                        {review?.user?.name}
+                      </h2>
                       <div className="mt-1">
-                        <Ratings value={review?.rating} disabled={true}/>
+                        <Ratings value={review?.rating} disabled={true} />
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5 text-xs font-bold text-gray-500 bg-slate-100 px-3 py-1 rounded-md border border-gray-100">
-                    <Calendar size={16} className="text-gray-500"/>{formatDate(review?.createdAt)}
+                    <Calendar size={16} className="text-gray-500" />
+                    {formatDate(review?.createdAt)}
                   </div>
                 </div>
-                <p className="text-gray-600 text-lg font-medium italic leading-relaxed mb-6">"{review?.comment}"</p>
+                <p className="text-gray-600 text-lg font-medium italic leading-relaxed mb-6">
+                  "{review?.comment}"
+                </p>
               </div>
             ))}
             {product?.reviews?.length === 0 && (

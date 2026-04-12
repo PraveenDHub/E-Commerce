@@ -2,12 +2,19 @@ import { useEffect, useState } from "react";
 import {ChevronLeft,ChevronRight} from "lucide-react";
 
 const images = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJVjdfNf40AwaxAmTg4VoYuDFyxDxo_qXLVg&s",
-    "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhAqKjbJUl-RRQSbrFprjGGbHB5-gPrZqrxg&s",
-]
+    "https://images.unsplash.com/photo-1523275335684-37898b6baf30",     // Smartwatch
+    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",        // Leather Messenger Bag
+    "https://images.unsplash.com/photo-1542291026-7eec264c27ff",        // Running Shoes
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",     // Over-ear Headphones
+    "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",     // Classic T-Shirt
+    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",        // Laptop Backpack
+    "https://images.unsplash.com/photo-1602143407151-7111542de6e8",     // Stainless Steel Water Bottle
+    "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f",     // Yoga Mat
+    "https://images.unsplash.com/photo-1524592094714-0f0654e20314",     // Analog Watch
+    "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1",     // Bluetooth Speaker
+    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",     // Adjustable Dumbbells
+    "https://images.unsplash.com/photo-1507473885765-e6ed057f782c",     // Desk Lamp
+];
 
 const ImageSlider = () => {
     const [current,setCurrent] = useState(0);

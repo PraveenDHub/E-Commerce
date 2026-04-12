@@ -11,12 +11,6 @@ const productSchema = new mongoose.Schema({
     required: [true, "Please enter product description"],
   },
 
-  mrp: {
-    type: Number,
-    required: [true, "Please enter MRP price"],
-    maxLength: [7, "Price cannot exceed 7 digits"],
-  },
-
   price: {
     type: Number,
     required: [true, "Please enter product price"],
@@ -36,6 +30,8 @@ const productSchema = new mongoose.Schema({
 
   ratings: {
     type: Number,
+    min: 0,
+    max: 5,
     default: 0,
   },
 
@@ -57,16 +53,24 @@ const productSchema = new mongoose.Schema({
     },
   ],
 
-  reviews:[
-    {
-        user:{type: mongoose.Schema.Types.ObjectId, ref:"User", required:true},
-        avatar: {type: String,},
-        name: {type: String,required: true,},
-        rating: {type: Number,required: true,},
-        comment: {type: String,required: true,},
-        createdAt:{type: Date,default: Date.now,},
-    },
-  ],
+  reviews: {
+    type: [
+      new mongoose.Schema(
+        {
+          user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+          },
+          name: { type: String, required: true },
+          rating: { type: Number, required: true },
+          comment: { type: String, required: true },
+        },
+        { timestamps: true },
+      ),
+    ],
+    default: [],
+  },
 
   //which user created this new product like brand new watches wheather admin or stock manager
   user: {

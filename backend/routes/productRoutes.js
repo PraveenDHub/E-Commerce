@@ -20,12 +20,7 @@ router.get("/product/:id", getSingleProduct);
 router.route("/review").put(verifyUser, createProductReview);
 
 //Admin
-router.post(
-  "/admin/product/create",
-  verifyUser,
-  roleBasedAccess("admin", "stockmanager"),
-  addProducts,
-);
+router.post( "/admin/product/create", verifyUser, roleBasedAccess("admin", "stockmanager"), addProducts);
 
 router
   .route("admin/product/:id")

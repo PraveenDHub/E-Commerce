@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import PageTitle from "../components/PageTitle"
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
+import {useSelector,useDispatch} from "react-redux"
 import toast from "react-hot-toast";
+import { register, removeError, removeSuccess } from "../features/products/User/userSlice";
 
 const Register = () => {
   const [preview,setPreview] = useState("https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
@@ -12,6 +14,9 @@ const Register = () => {
   });
   const {name,email,password} = user;
   const [avatar,setAvatar] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {loading,error,message,success} = useSelector((state)=>state.user);
 
   const handleChange = (e)=>{
     if(e.target.name == "avatar"){
@@ -40,7 +45,20 @@ const Register = () => {
     formData.append("email",email);
     formData.append("password",password);
     formData.append("avatar",avatar);
+    dispatch(register(formData));
   };
+
+  useEffect(() => {
+    if(error){
+      toast.error(error);
+      dispatch(removeError());
+    }
+    if(success){
+      toast.success(message);
+      dispatch(removeSuccess());
+      navigate("/login");
+    }
+  }, [error,success,message,dispatch]);
 
   return (
     <>
@@ -78,7 +96,7 @@ const Register = () => {
                     hover:file:bg-violet-100"/>
                 </label>
             </div>
-            <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 w-full text-white py-3 rounded-xl font-semibold shadow-lg shadow-indigo-200 active:scale-95 transition-all duration-300">Sign Up</button>
+            <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 w-full text-white py-3 rounded-xl font-semibold shadow-lg shadow-indigo-200 active:scale-95 transition-all duration-300">{loading ? "Loading..." : "Sign Up"}</button>
             <p className="text-gray-600 mt-4 text-center">
                 Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Sign In</Link>
             </p>
