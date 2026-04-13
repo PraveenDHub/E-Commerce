@@ -3,16 +3,20 @@ import Product from "../model/productModel.js";
 
 export const getCart = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).populate("cartItems.product", "name price images stock");
-    if(!user){
-      return res.status(404).json({ message: "User not found Sorry! Could not get your cart" });
+    const user = await User.findById(req.user.id).populate(
+      "cartItems.product",
+      "name price images stock",
+    );
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found Sorry! Could not get your cart" });
     }
 
     res.status(200).json({
       success: true,
       cartItems: user.cartItems,
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -38,6 +42,12 @@ export const getCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "Please login to add items to cart",
+      });
+    }
     const { productId, quantity } = req.body;
 
     const user = await User.findById(req.user.id);
@@ -48,7 +58,7 @@ export const addToCart = async (req, res) => {
     }
 
     const itemIndex = user.cartItems.findIndex(
-      (item) => item.product.toString() === productId
+      (item) => item.product.toString() === productId,
     );
 
     if (itemIndex > -1) {
@@ -71,7 +81,6 @@ export const addToCart = async (req, res) => {
       success: true,
       cartItems: user.cartItems,
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -84,7 +93,7 @@ export const removeFromCart = async (req, res) => {
     const user = await User.findById(req.user.id);
 
     user.cartItems = user.cartItems.filter(
-      (item) => item.product.toString() !== productId
+      (item) => item.product.toString() !== productId,
     );
 
     await user.save();
@@ -93,7 +102,6 @@ export const removeFromCart = async (req, res) => {
       success: true,
       cartItems: user.cartItems,
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -106,7 +114,7 @@ export const updateCartItem = async (req, res) => {
     const user = await User.findById(req.user.id);
 
     const item = user.cartItems.find(
-      (item) => item.product.toString() === productId
+      (item) => item.product.toString() === productId,
     );
 
     if (!item) {
@@ -116,7 +124,7 @@ export const updateCartItem = async (req, res) => {
     if (quantity <= 0) {
       // ❌ Remove item if qty 0
       user.cartItems = user.cartItems.filter(
-        (i) => i.product.toString() !== productId
+        (i) => i.product.toString() !== productId,
       );
     } else {
       item.quantity = quantity;
@@ -128,7 +136,22 @@ export const updateCartItem = async (req, res) => {
       success: true,
       cartItems: user.cartItems,
     });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
+export const clearCart = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    user.cartItems = [];
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      cartItems: [],
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

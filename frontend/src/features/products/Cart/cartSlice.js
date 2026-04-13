@@ -27,8 +27,7 @@ export const addToCartAPI = createAsyncThunk(
       const { data } = await axios.post("/api/v1/cart", {
         productId,
         quantity,
-      });
-      console.log("data", data);
+      })
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data);
@@ -61,6 +60,18 @@ export const removeCartAPI = createAsyncThunk(
       return rejectWithValue(error.response?.data);
     }
   },
+);
+
+export const clearCartAPI = createAsyncThunk(
+  "cart/clearCart",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete("/api/v1/cart"); // 👈 endpoint
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data);
+    }
+  }
 );
 
 const cartSlice = createSlice({
@@ -140,11 +151,26 @@ const cartSlice = createSlice({
       state.loading = false;
     });
 
+    builder.addCase(clearCartAPI.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(clearCartAPI.fulfilled, (state, action) => {
+      state.cartItems = [];
+      state.totalAmount = 0;
+      state.loading = false;
+    });
+    builder.addCase(clearCartAPI.rejected, (state) => {
+      state.loading = false;
+    });
+
     builder.addCase(logout.fulfilled, (state) => {
       state.cartItems = [];
       state.totalAmount = 0;
       state.loading = false;
-      // ✅ important
+      //clear all local storage and session storage
+      localStorage.removeItem("shippingInfo");
+      localStorage.removeItem("cartItems");
+      sessionStorage.removeItem("orderInfo");
     });
   },
 });

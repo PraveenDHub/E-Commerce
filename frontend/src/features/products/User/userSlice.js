@@ -59,6 +59,9 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get("/api/v1/logout");
+      // ✅ Clear ALL user-related storage
+      localStorage.clear(); 
+      sessionStorage.clear();
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Logout failed!");

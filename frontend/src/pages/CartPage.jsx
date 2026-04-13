@@ -32,7 +32,7 @@ const CartPage = () => {
                 </h3>
                 <div className="pr-2 custom-scrollbar max-h-[400px] overflow-y-auto space-y-1">
                   {cartItems.map((item) => (
-                    <CartItem key={item.product} item={item} />
+                    <CartItem key={item.product?._id || item._id} item={item} />
                   ))}
                 </div>
               </div>

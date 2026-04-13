@@ -18,7 +18,7 @@ import {
   getProductDetails,
   removeError,
 } from "../features/products/productSlice";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { calculateDiscount, formatDate } from "../utils/formatter";
@@ -36,7 +36,12 @@ const ProductDetails = () => {
     (state) => state.product,
   );
   const { cartItems } = useSelector((state) => state.cart);
-  const cartItem = cartItems.find((i) => i._id === product?._id);
+  const { user } = useSelector((state) => state.user);
+  const cartItem = cartItems.find(
+  (i) =>
+    i.product?.toString() === product?._id ||
+    i.product?._id === product?._id
+);
   useEffect(() => {
     if (success) {
       toast.success(message);
@@ -77,6 +82,69 @@ const ProductDetails = () => {
     );
   };
 
+  const handleAddToCart = () => {
+  if (!user) {
+    toast.error("Please login to add items to cart");
+    navigate("/login?redirect=/products");
+    return;
+  }
+
+  if (cartItem) return;
+
+  dispatch(
+    addToCartAPI({
+      productId: product._id,
+      quantity: 1,
+    })
+  )
+    // .unwrap()
+    // .then(() => toast.success("Item added to cart"))
+    // .catch(() => toast.error("Failed to add item"));
+};
+
+//increase quantity
+const handleIncrease = () => {
+  if (!user) {
+    toast.error("Please login to add items to cart");
+    navigate("/login?redirect=/products");
+    return;
+  }
+
+  if (!cartItem) {
+    dispatch(addToCartAPI({ productId: product._id, quantity: 1 }));
+    toast.success("Item added to cart");
+  } else {
+    dispatch(
+      updateCartAPI({
+        productId: product._id,
+        quantity: cartItem.quantity + 1,
+      })
+    );
+  }
+};
+
+//decrease quantity
+const handleDecrease = () => {
+  if (!user) {
+    toast.error("Please login to add items to cart");
+    navigate("/login?redirect=/products");
+    return;
+  }
+  if (!cartItem) return; // nothing to decrease
+
+  if (cartItem.quantity === 1) {
+    toast.error("Minimum quantity is 1");
+    return;
+  }
+
+  dispatch(
+    updateCartAPI({
+      productId: product._id,
+      quantity: cartItem.quantity - 1,
+    })
+  );
+};
+
   return (
     <div className="min-h-screen bg-gray-50">
       <PageTitle title={`${product?.name} | E-Commerce`} />
@@ -88,7 +156,7 @@ const ProductDetails = () => {
           {/* here we use aspect-square it takes the width of parent and makes the height equal to width */}
           <div className="rounded-lg aspect-square overflow-hidden">
             <img
-              src={product?.images[0].url}
+              src={product?.images?.[0]?.url}
               alt="Product-img"
               title={product?.name}
               className="object-cover w-full h-full hover:scale-105 transition-transform duration-700 ease-in-out"
@@ -145,36 +213,37 @@ const ProductDetails = () => {
                 <div className="flex flex-wrap items-center gap-5">
                   <div className="items-center border-2 border-slate-300 rounded-md flex">
                     <button
-                      onClick={() => {
-                        dispatch(increaseQty(product._id));
-                      }}
+                      onClick={() => {handleIncrease()}}
                       className="p-4 text-sm hover:text-amber-500 transition-colors"
                     >
                       <Plus size={20} />
                     </button>
                     <span className="text-gray-600 p-4 font-bold w-15 text-center text-sm hover:text-amber-500 transition-colors">
-                      {cartItem?.quantity || 1}
+                      {cartItem?.quantity || 0}
                     </span>
                     <button
-                      onClick={() => {
-                        dispatch(decreaseQty(product._id));
-                      }}
+                      onClick={() => {handleDecrease()}}
                       className="p-4 text-sm hover:text-amber-500 transition-colors"
                     >
                       <Minus size={20} />
                     </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      dispatch(
-                        addToCartAPI({ productId: product._id, quantity: 1 }),
-                      );
-                    }}
-                    className="bg-blue-600 flex justify-center gap-2 items-center flex-1 text-white p-4 text-sm font-semibold rounded-md hover:bg-blue-700 transition-all duration-300 active:scale-95"
-                  >
-                    <ShoppingCart size={20} />
-                    {cartItem ? "Update Cart" : "Add to Cart"}
-                  </button>
+                  {cartItem ? (
+                    <Link
+                      to="/cart"
+                      className="bg-green-600 flex justify-center items-center flex-1 text-white p-4 text-sm font-semibold rounded-md hover:bg-green-700 transition"
+                    >
+                      Go to Cart
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={handleAddToCart}
+                      className="bg-blue-600 flex justify-center gap-2 items-center flex-1 text-white p-4 text-sm font-semibold rounded-md hover:bg-blue-700 transition"
+                    >
+                      <ShoppingCart size={20} />
+                      Add to Cart
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -219,7 +288,7 @@ const ProductDetails = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {product?.reviews?.map((review, index) => (
               <div
-                key={index}
+                key={review._id}
                 className="bg-white p-8 rounded-2xl border border-gray-100 hover:border-amber-200 transition-all duration-300 shadow-sm group"
               >
                 <div className="flex items-start justify-between mb-6">

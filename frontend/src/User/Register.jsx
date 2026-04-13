@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { register, removeError, removeSuccess } from "../features/products/User/userSlice";
 
 const Register = () => {
-  const [preview,setPreview] = useState("https://plus.unsplash.com/premium_photo-1677252438411-9a930d7a5168?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  const [preview,setPreview] = useState("https://cdn-icons-png.flaticon.com/512/149/149071.png");
   const [user,setUser] = useState({
     name: "",
     email: "",
@@ -95,6 +95,7 @@ const Register = () => {
                     file:bg-violet-50 file:text-blue-600
                     hover:file:bg-violet-100"/>
                 </label>
+                <small className="text-gray-500 whitespace-nowrap">Max 100kb</small>
             </div>
             <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 w-full text-white py-3 rounded-xl font-semibold shadow-lg shadow-indigo-200 active:scale-95 transition-all duration-300">{loading ? "Loading..." : "Sign Up"}</button>
             <p className="text-gray-600 mt-4 text-center">

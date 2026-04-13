@@ -6,7 +6,7 @@ import PageNotFound from "./pages/PageNotFound";
 import ProductDetails from "./pages/ProductDetails";
 import Products from "./pages/Products";
 import Login from "./User/Login";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { loadUser } from "./features/products/User/userSlice.js";
 import Profile from "./User/Profile.jsx";
@@ -25,15 +25,18 @@ import AdminOrders from "./pages/AdminOrders.jsx";
 import Unauthorized from "./components/Unauthorized.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
-
 const App = () => {
   const dispatch = useDispatch();
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   // Load user on app start (only once)
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
+    if (isAuthenticated) {
+      dispatch(loadUser());
+    }
+  }, [dispatch, isAuthenticated]);
 
   // Fetch Stripe API Key
   useEffect(() => {
@@ -60,7 +63,9 @@ const App = () => {
         <Route path="/login" element={<Login />} />
 
         {/* Protected User Routes */}
-        <Route element={<ProtectedRoute />}>   {/* Any logged-in user */}
+        <Route element={<ProtectedRoute />}>
+          {" "}
+          {/* Any logged-in user */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/update" element={<UpdateProfile />} />
           <Route path="/cart" element={<CartPage />} />
@@ -68,10 +73,17 @@ const App = () => {
           <Route path="/confirm-order" element={<ConfirmOrder />} />
           <Route path="/orders" element={<MyOrders />} />
           <Route path="/order/:id" element={<OrderDetails />} />
-          
           {/* Payment Route with Stripe */}
           {stripeApiKey && (
-            <Route path="/payment" element={ <Elements stripe={loadStripe(stripeApiKey)}> <Payment /> </Elements> } />
+            <Route
+              path="/payment"
+              element={
+                <Elements stripe={loadStripe(stripeApiKey)}>
+                  {" "}
+                  <Payment />{" "}
+                </Elements>
+              }
+            />
           )}
           <Route path="/success" element={<Success />} />
         </Route>

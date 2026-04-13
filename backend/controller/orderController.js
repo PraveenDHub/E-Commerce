@@ -15,6 +15,25 @@ export const createNewOrder = async (req, res) => {
     totalPrice,
   } = req.body;
 
+  // ✅ 1. VALIDATE STOCK BEFORE ORDER CREATION
+  for (const item of orderItems) {
+    const product = await Product.findById(item.product);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (product.stock < item.quantity) {
+      return res.status(400).json({
+        message: `${product.name} is out of stock`,
+      });
+    }
+
+    // optional: sync latest price
+    item.price = product.price;
+  }
+
+  // ✅ 2. CREATE ORDER
   const order = await Order.create({
     shippingAddress,
     orderItems,
@@ -27,10 +46,10 @@ export const createNewOrder = async (req, res) => {
     user: req.user._id,
   });
 
-  // 2. 🔥 CLEAR USER CART
-    const user = await User.findById(req.user.id);
-    user.cartItems = [];
-    await user.save();
+  // ✅ 3. CLEAR USER CART
+  const user = await User.findById(req.user.id);
+  user.cartItems = [];
+  await user.save();
 
   res.status(201).json({
     success: true,

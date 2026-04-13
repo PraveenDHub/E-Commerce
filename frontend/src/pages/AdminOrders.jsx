@@ -309,65 +309,60 @@ const AdminOrders = () => {
         </div>
 
         {/* TABLE */}
+        {/* RESPONSIVE TABLE / CARD SECTION */}
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="overflow-x-auto">
+          {/* Desktop Table - Hidden on mobile */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full min-w-full">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50">
-                  <th className="px-8 py-5 text-left text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-5 text-left text-sm font-semibold text-gray-600">
                     Order ID
                   </th>
-                  <th className="px-8 py-5 text-left text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-5 text-left text-sm font-semibold text-gray-600">
                     Customer
                   </th>
-                  <th className="px-8 py-5 text-right text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-5 text-right text-sm font-semibold text-gray-600">
                     Amount
                   </th>
-                  <th className="px-8 py-5 text-center text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-5 text-center text-sm font-semibold text-gray-600">
                     Items
                   </th>
-                  <th className="px-8 py-5 text-center text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-5 text-center text-sm font-semibold text-gray-600">
                     Status
                   </th>
-                  <th className="px-8 py-5 text-left text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-5 text-left text-sm font-semibold text-gray-600">
                     Date
                   </th>
-                  <th className="px-8 py-5 text-center text-sm font-semibold text-gray-600">
+                  <th className="px-6 py-5 text-center text-sm font-semibold text-gray-600">
                     Actions
                   </th>
                 </tr>
               </thead>
-
               <tbody className="divide-y divide-gray-100">
                 {filteredOrders.map((order) => (
                   <tr
                     key={order._id}
                     className="hover:bg-indigo-50/50 transition-colors group"
                   >
-                    <td className="px-8 py-6 font-mono font-semibold text-gray-900">
+                    <td className="px-6 py-6 font-mono font-semibold text-gray-900">
                       #{order.orderId}
                     </td>
-
-                    <td className="px-8 py-6">
-                      <div className="font-medium text-gray-900">
-                        {order.customerName}
-                      </div>
-                      <div className="text-sm text-gray-500 mt-0.5">
+                    <td className="px-6 py-6">
+                      <div className="font-medium">{order.customerName}</div>
+                      <div className="text-sm text-gray-500">
                         {order.customerEmail}
                       </div>
                     </td>
-
-                    <td className="px-8 py-6 text-right font-semibold text-lg text-gray-900">
+                    <td className="px-6 py-6 text-right font-semibold text-lg">
                       ₹{order.totalAmount.toLocaleString("en-IN")}
                     </td>
-
-                    <td className="px-8 py-6 text-center">
-                      <span className="inline-flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full text-sm font-medium text-gray-700">
+                    <td className="px-6 py-6 text-center">
+                      <span className="inline-flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full text-sm font-medium">
                         {order.items}
                       </span>
                     </td>
-
-                    <td className="px-8 py-6 text-center">
+                    <td className="px-6 py-6 text-center">
                       <select
                         value={order.status}
                         onChange={(e) => {
@@ -378,9 +373,7 @@ const AdminOrders = () => {
                           }
                           updateStatus(order._id, newStatus);
                         }}
-                        className={`px-5 py-2 text-sm font-medium rounded-2xl cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${getStatusColor(
-                          order.status,
-                        )}`}
+                        className={`px-5 py-2 text-sm font-medium rounded-2xl ${getStatusColor(order.status)}`}
                       >
                         <option value="Processing">Processing</option>
                         <option value="Packed">Packed</option>
@@ -389,17 +382,15 @@ const AdminOrders = () => {
                         <option value="Cancelled">Cancelled</option>
                       </select>
                     </td>
-
-                    <td className="px-8 py-6 text-sm text-gray-500">
+                    <td className="px-6 py-6 text-sm text-gray-500">
                       {new Date(order.createdAt).toLocaleDateString("en-IN", {
                         day: "numeric",
                         month: "short",
                         year: "numeric",
                       })}
                     </td>
-
-                    <td className="px-8 py-6 text-center">
-                      <div className="flex items-center justify-center gap-4 opacity-80 group-hover:opacity-100 transition-all">
+                    <td className="px-6 py-6 text-center">
+                      <div className="flex items-center justify-center gap-3">
                         <button
                           onClick={() => navigate(`/order/${order._id}`)}
                           className="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-700 font-medium text-sm transition-colors"
@@ -422,18 +413,96 @@ const AdminOrders = () => {
             </table>
           </div>
 
+          {/* Mobile Card View - Shown only on mobile */}
+          <div className="md:hidden divide-y divide-gray-100">
+            {filteredOrders.map((order) => (
+              <div
+                key={order._id}
+                className="p-5 hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <p className="font-mono font-semibold text-lg text-gray-900">
+                      #{order.orderId}
+                    </p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      {new Date(order.createdAt).toLocaleDateString("en-IN")}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold text-xl">
+                      ₹{order.totalAmount.toLocaleString("en-IN")}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center mb-4">
+                  <div>
+                    <p className="text-gray-600 text-sm">Customer</p>
+                    <p className="font-medium">{order.customerName}</p>
+                    <p className="text-xs text-gray-500">
+                      {order.customerEmail}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-gray-600 text-sm mb-1">Items</p>
+                    <span className="inline-block w-8 h-8 bg-gray-100 rounded-full text-center leading-8 font-medium">
+                      {order.items}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <select
+                    value={order.status}
+                    onChange={(e) => {
+                      const newStatus = e.target.value;
+                      if (newStatus === "Delivered") {
+                        confirmDelivered(order._id);
+                        return;
+                      }
+                      updateStatus(order._id, newStatus);
+                    }}
+                    className={`px-5 py-2.5 text-sm font-medium rounded-2xl ${getStatusColor(order.status)}`}
+                  >
+                    <option value="Processing">Processing</option>
+                    <option value="Packed">Packed</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+
+                  <div className="flex gap-4">
+                    <button
+                      onClick={() => navigate(`/order/${order._id}`)}
+                      className="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-700 font-medium"
+                    >
+                      <Eye className="w-5 h-5" /> View
+                    </button>
+                    <button
+                      onClick={() => deleteOrder(order._id)}
+                      className="text-red-500 hover:text-red-600"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* No Orders Message */}
           {filteredOrders.length === 0 && (
-            <div className="py-24 text-center">
-              <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+            <div className="py-20 text-center">
+              <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-3xl">
                 📭
               </div>
               <p className="text-gray-500 text-lg">No orders found</p>
-              <p className="text-sm text-gray-400 mt-1">
-                Try adjusting your search term
-              </p>
             </div>
           )}
         </div>
+
+        
       </div>
     </div>
   );

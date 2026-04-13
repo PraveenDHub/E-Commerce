@@ -4,19 +4,28 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { addToCartAPI } from "../features/products/Cart/cartSlice.js";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   //Rating is set to product.ratings in DB by default
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [rating, setRating] = useState(product.ratings || 0);
-
+  const { user } = useSelector((state) => state.user);
   const { cartItems, loading } = useSelector((state) => state.cart);
-  console.log("Cart Items",cartItems);
-  const isInCart = cartItems.some((item) => item.product?._id === product._id);
-  console.log(`${product.name}`,isInCart);
+  const [adding, setAdding] = useState(false);
+  const isInCart = cartItems.some( (item) => (typeof item.product === "string" ? item.product : item.product?._id) === product._id );
 
   const handleAddToCart = () => {
-  if (isInCart) return; // 🚫 prevent second click logic
+  if (!user) {
+    toast.error("Please login to add items to cart");
+    navigate("/login?redirect=/products"); // optional redirect
+    return;
+  }
+
+  if (isInCart || adding) return;
+
+  setAdding(true);
 
   dispatch(addToCartAPI({ productId: product._id, quantity: 1 }))
     .unwrap()
@@ -25,8 +34,11 @@ const ProductCard = ({ product }) => {
     })
     .catch(() => {
       toast.error("Failed to add item");
+    })
+    .finally(() => {
+      setAdding(false);
     });
-  };
+};
 
   return (
     <div className="bg-white overflow-hidden rounded-xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
@@ -71,12 +83,14 @@ const ProductCard = ({ product }) => {
           ) : (
             <button
               onClick={handleAddToCart}
-              disabled={loading}
+              disabled={loading || adding}
               className={`bg-blue-600 text-white px-4 py-1.5 text-sm font-semibold rounded-md ${
-                loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+                loading || adding
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-blue-700"
               }`}
             >
-              {loading ? "Adding..." : "Add to Cart"}
+              {adding ? "Adding..." : "Add to Cart"}
             </button>
           )}
         </div>

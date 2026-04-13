@@ -16,11 +16,11 @@ const ConfirmOrder = () => {
   );
 
   useEffect(() => {
-    if(!cartItems || cartItems.length === 0){
-      toast.error("Cart is empty! Please add items to your cart.");
+    if (!cartItems || cartItems.length === 0) {
+      toast.error("Cart is empty! Please add items.");
       navigate("/products");
     }
-  },[]);
+  }, [cartItems, navigate]);
 
   const shippingCharges = subtotal > 1000 ? 0 : 100;
   const tax = subtotal * 0.18;
@@ -78,7 +78,7 @@ const ConfirmOrder = () => {
                 className="flex items-center gap-4 bg-white p-3 rounded-lg mb-3 border border-slate-200"
               >
                 <img
-                  src={item.images[0].url}
+                  src={item.image || "/fallback.png"}
                   alt={item.name}
                   className="w-16 h-16 object-cover rounded-md"
                 />

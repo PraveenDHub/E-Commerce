@@ -258,17 +258,28 @@ export const getSingleUser = async (req, res, next) => {
 
 export const updateUserRole = async (req, res, next) => {
   const { role } = req.body;
-  const updateDetails = { role };
-  const user = await User.findByIdAndUpdate(req.params.id, updateDetails, {
-    new: true,
-    runValidators: true,
-  });
-  if (!user || !req.body) {
+
+  // ✅ allow only specific roles
+  if (!["user", "admin"].includes(role)) {
+    return next(new HandleError("Invalid role!", 400));
+  }
+
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    { role },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!user) {
     return next(new HandleError("User not found!", 404));
   }
+
   res.status(200).json({
     success: true,
-    message: "User Role Updated sucessfully!",
+    message: "User Role Updated successfully!",
     user,
   });
 };

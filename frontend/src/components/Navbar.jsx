@@ -77,7 +77,7 @@ const handleLogout = () => {
           >
             Contact Me
           </Link>
-          {user?.role === "admin" && (
+          {isAuthenticated && user?.role === "admin" && (
   <button
     onClick={() => navigate('/admin/orders')}
     className="flex items-center gap-3 px-7 py-2 bg-zinc-900 hover:bg-black border border-zinc-700 hover:border-violet-500 rounded-2xl text-white font-medium transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/20 group"
@@ -233,7 +233,7 @@ const handleLogout = () => {
           >
             Contact Us
           </Link>
-          {user?.role === "admin" && (
+          {isAuthenticated && user?.role === "admin" && (
           <button
             onClick={() => navigate('/admin/orders')}
             className="flex items-center gap-3 px-7 py-2 bg-zinc-900 hover:bg-black border border-zinc-700 hover:border-violet-500 rounded-2xl text-white font-medium transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/20 group"
