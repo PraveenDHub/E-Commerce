@@ -227,8 +227,8 @@ export const updateProfile = async (req, res, next) => {
     };
   }
   const user = await User.findByIdAndUpdate(req.user.id, updateDetails, {
-    new: true,
-    runValidators: true,
+    returnDocument: "after", // ✅ replaces new: true
+    runValidators: true,     // ✅ keep this
   });
   res.status(200).json({
     success: true,
@@ -268,9 +268,9 @@ export const updateUserRole = async (req, res, next) => {
     req.params.id,
     { role },
     {
-      new: true,
-      runValidators: true,
-    }
+    returnDocument: "after", // ✅ replaces new: true
+    runValidators: true,     // ✅ keep this
+  }
   );
 
   if (!user) {

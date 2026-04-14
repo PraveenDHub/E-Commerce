@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 
 const Ratings = ({ value = 0, onRatingChange, disabled = false, showValue = true }) => {
+  
   const [hover, setHover] = useState(0);
 
   return (

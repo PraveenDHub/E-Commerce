@@ -36,8 +36,8 @@ export const processPayment = async (req, res) => {
     const { amount, shipping } = req.body;
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Number(amount) * 100, // 💥 USD → cents
-      currency: "usd", // ✅ change to USD
+      amount: Math.round(Number(amount) * 100), // ✅ INR → paise
+      currency: "inr", // ✅ FIXED
 
       shipping: {
         name: req.user?.name || shipping.name,
@@ -47,7 +47,7 @@ export const processPayment = async (req, res) => {
           city: shipping.address.city,
           state: shipping.address.state,
           postal_code: shipping.address.pinCode,
-          country: "US",
+          country: "IN", // ✅ FIXED
         },
       },
     });

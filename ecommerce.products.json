@@ -1,0 +1,512 @@
+[
+  {
+    "name": "Smartwatch Pro",
+    "description": "Premium smartwatch with health tracking, notifications, and long battery life.",
+    "mrp": 1400,
+    "price": 999,
+    "category": "Electronics",
+    "stock": 43,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-15T00:00:00.000Z"
+  },
+  {
+    "name": "Noise Cancelling Earbuds",
+    "description": "Wireless earbuds with active noise cancellation and superior sound quality.",
+    "mrp": 3299,
+    "price": 2199,
+    "category": "Electronics",
+    "stock": 77,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-18T00:00:00.000Z"
+  },
+  {
+    "name": "Bluetooth Speaker",
+    "description": "Portable waterproof Bluetooth speaker with deep bass and 12-hour playback.",
+    "mrp": 1999,
+    "price": 1299,
+    "category": "Electronics",
+    "stock": 62,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-10T00:00:00.000Z"
+  },
+  {
+    "name": "Gaming Mouse",
+    "description": "Ergonomic RGB gaming mouse with 16000 DPI and ultra-fast response.",
+    "mrp": 1499,
+    "price": 999,
+    "category": "Electronics",
+    "stock": 134,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1613141412501-9012977f1969?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-20T00:00:00.000Z"
+  },
+  {
+    "name": "4K Smart TV 55 inch",
+    "description": "Ultra HD Smart LED TV with voice control and Netflix built-in.",
+    "mrp": 45999,
+    "price": 32999,
+    "category": "Electronics",
+    "stock": 23,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-02-28T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Keyboard & Mouse Combo",
+    "description": "Slim ergonomic keyboard and mouse set for office and home use.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Electronics",
+    "stock": 95,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1587829741301-dc798e83add3"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-22T00:00:00.000Z"
+  },
+  {
+    "name": "Men's Slim Fit Jeans",
+    "description": "Premium stretchable dark blue slim fit jeans for everyday wear.",
+    "mrp": 1899,
+    "price": 999,
+    "category": "Fashion",
+    "stock": 210,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1542272604-787c3835535d"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-12T00:00:00.000Z"
+  },
+  {
+    "name": "Women's Floral Maxi Dress",
+    "description": "Beautiful summer floral print maxi dress with comfortable fabric.",
+    "mrp": 2299,
+    "price": 1399,
+    "category": "Fashion",
+    "stock": 86,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-19T00:00:00.000Z"
+  },
+  {
+    "name": "Unisex Hooded Sweatshirt",
+    "description": "Soft cotton oversized hoodie perfect for casual and street style.",
+    "mrp": 1499,
+    "price": 899,
+    "category": "Fashion",
+    "stock": 156,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-05T00:00:00.000Z"
+  },
+  {
+    "name": "Leather Wallet for Men",
+    "description": "Genuine leather bifold wallet with RFID blocking.",
+    "mrp": 999,
+    "price": 599,
+    "category": "Fashion",
+    "stock": 320,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1627123424574-724758594e93"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-25T00:00:00.000Z"
+  },
+  {
+    "name": "Stainless Steel Water Bottle",
+    "description": "Insulated 1L water bottle keeps drinks hot or cold for 24 hours.",
+    "mrp": 899,
+    "price": 549,
+    "category": "Home & Kitchen",
+    "stock": 180,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1602143407151-7111542de6e8"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-08T00:00:00.000Z"
+  },
+  {
+    "name": "Non-Stick Cookware Set",
+    "description": "10-piece induction compatible non-stick cookware set.",
+    "mrp": 3999,
+    "price": 2499,
+    "category": "Home & Kitchen",
+    "stock": 64,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://plus.unsplash.com/premium_photo-1664391825760-17aacf4cb3b4?q=80&w=775&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-14T00:00:00.000Z"
+  },
+  {
+    "name": "Aromatherapy Essential Oil Diffuser",
+    "description": "Ultrasonic humidifier diffuser with 7 LED colors.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Home & Kitchen",
+    "stock": 143,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-21T00:00:00.000Z"
+  },
+  {
+    "name": "Memory Foam Pillow",
+    "description": "Orthopedic cervical memory foam pillow for neck pain relief.",
+    "mrp": 1499,
+    "price": 899,
+    "category": "Home & Kitchen",
+    "stock": 98,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://plus.unsplash.com/premium_photo-1723834562784-a56d7b234360?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-16T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Vacuum Cleaner",
+    "description": "Cordless handheld vacuum cleaner with powerful suction.",
+    "mrp": 5999,
+    "price": 3999,
+    "category": "Home & Kitchen",
+    "stock": 41,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-23T00:00:00.000Z"
+  },
+  {
+    "name": "Vitamin C Serum",
+    "description": "Brightening 20% Vitamin C facial serum for glowing skin.",
+    "mrp": 899,
+    "price": 599,
+    "category": "Beauty",
+    "stock": 267,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1723951174326-2a97221d3b7f?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-11T00:00:00.000Z"
+  },
+  {
+    "name": "Matte Lipstick Set",
+    "description": "Long-lasting 6 shade matte lipstick collection.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Beauty",
+    "stock": 189,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1606231567442-1c00323181e7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-17T00:00:00.000Z"
+  },
+  {
+    "name": "Electric Hair Straightener",
+    "description": "Ceramic hair straightener with temperature control.",
+    "mrp": 1899,
+    "price": 1199,
+    "category": "Beauty",
+    "stock": 76,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-09T00:00:00.000Z"
+  },
+  {
+    "name": "Cricket Bat",
+    "description": "English willow cricket bat with lightweight design.",
+    "mrp": 2499,
+    "price": 1799,
+    "category": "Sports",
+    "stock": 52,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1758791184255-411236a49346?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-24T00:00:00.000Z"
+  },
+  {
+    "name": "Yoga Mat Premium",
+    "description": "Eco-friendly non-slip 6mm thick yoga mat with carrying strap.",
+    "mrp": 999,
+    "price": 649,
+    "category": "Sports",
+    "stock": 312,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-07T00:00:00.000Z"
+  },
+  {
+    "name": "Running Shoes",
+    "description": "Lightweight breathable running shoes with excellent cushioning.",
+    "mrp": 3299,
+    "price": 2199,
+    "category": "Sports",
+    "stock": 124,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-26T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Fitness Tracker",
+    "description": "Advanced fitness band with heart rate and sleep monitoring.",
+    "mrp": 2499,
+    "price": 1699,
+    "category": "Electronics",
+    "stock": 88,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1575311373937-040b8e2f8b6f"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-28T00:00:00.000Z"
+  },
+  {
+    "name": "Denim Jacket",
+    "description": "Classic unisex denim jacket with vintage wash.",
+    "mrp": 2199,
+    "price": 1499,
+    "category": "Fashion",
+    "stock": 67,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1551537482-f2075a1d41b2"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-27T00:00:00.000Z"
+  },
+  {
+    "name": "Electric Kettle 1.8L",
+    "description": "Stainless steel electric kettle with auto shut-off.",
+    "mrp": 1299,
+    "price": 799,
+    "category": "Home & Kitchen",
+    "stock": 203,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1600585154340-be6161a56a9c"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-29T00:00:00.000Z"
+  },
+  {
+    "name": "Face Moisturizer",
+    "description": "Hydrating day cream with SPF 30 for all skin types.",
+    "mrp": 699,
+    "price": 449,
+    "category": "Beauty",
+    "stock": 345,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1629051192950-d251e96ab1b0?q=80&w=732&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-30T00:00:00.000Z"
+  },
+  {
+    "name": "Badminton Racket",
+    "description": "Professional carbon fiber badminton racket with cover.",
+    "mrp": 1499,
+    "price": 999,
+    "category": "Sports",
+    "stock": 91,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1626248801372-9e1f3f0e6f6f"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-04-01T00:00:00.000Z"
+  },
+  {
+    "name": "Wireless Over-Ear Headphones",
+    "description": "Comfortable noise cancelling over-ear Bluetooth headphones.",
+    "mrp": 3999,
+    "price": 2599,
+    "category": "Electronics",
+    "stock": 54,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-04-02T00:00:00.000Z"
+  },
+  {
+    "name": "Cargo Pants",
+    "description": "Relaxed fit multi-pocket cargo pants for men.",
+    "mrp": 1699,
+    "price": 1099,
+    "category": "Fashion",
+    "stock": 132,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1541099649105-f69ad21f864f"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-04-03T00:00:00.000Z"
+  },
+  {
+    "name": "Air Fryer 5L",
+    "description": "Digital air fryer with 8 preset cooking modes.",
+    "mrp": 5999,
+    "price": 4299,
+    "category": "Home & Kitchen",
+    "stock": 37,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1585504217863-0f5f2c4b6d4b"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-03-31T00:00:00.000Z"
+  },
+  {
+    "name": "Sunscreen SPF 50",
+    "description": "Broad spectrum waterproof sunscreen lotion.",
+    "mrp": 599,
+    "price": 399,
+    "category": "Beauty",
+    "stock": 278,
+    "ratings": 0,
+    "numOfReviews": 0,
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1556228578-0d9b5d6a8c8c"
+      }
+    ],
+    "reviews": [],
+    "createdAt": "2025-04-04T00:00:00.000Z"
+  }
+]

@@ -53,7 +53,7 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="border-t border-gray-700">
         <p className="text-center text-xs text-gray-500 py-4">
-          &copy; 2026 Tutor Joes. All rights reserved
+          &copy; 2026 Praveen D. All rights reserved
         </p>
       </div>
     </footer>

@@ -84,9 +84,9 @@ export const updateProducts = async (req, res, next) => {
   try {
     const id = req.params.id;
     const product = await Product.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    returnDocument: "after", 
+    runValidators: true,     
+  });
 
     if (!product) {
       return next(new HandleError("Product not found", 404));

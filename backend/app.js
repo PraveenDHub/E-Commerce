@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/api/v1/", userRoutes);
 app.use("/api/v1/", orderRoutes);
 app.use("/api/v1/", paymentRoutes);
 app.use("/api/v1/", cartRoutes);
+app.use("/api/v1/", contactRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

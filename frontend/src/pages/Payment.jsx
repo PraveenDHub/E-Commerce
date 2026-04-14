@@ -50,78 +50,82 @@ const Payment = () => {
     },
   };
 
-  const handlePayment = async () => {
-    if (method === "upi") {
-      toast('Complete the UPI payment and click "I Have Paid"', { icon: '👏' });
+const handlePayment = async () => {
+  if (!stripe || !elements) {
+    toast.error("Stripe not loaded");
+    return;
+  }
+
+  if (method === "upi") {
+    toast('Complete the UPI payment and click "I Have Paid"', { icon: '👏' });
+    return;
+  }
+
+  setLoading(true);
+  setError("");
+
+  try {
+    const { data } = await axios.post("/api/v1/payment/process", paymentData);
+
+    const result = await stripe.confirmCardPayment(data.client_secret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: user.name,
+          email: user.email,
+        },
+      },
+    });
+
+    if (result.error) {
+      console.log(result.error); 
+      toast.error(result.error.message);
+      setLoading(false);
       return;
     }
 
-    setLoading(true);
-    setError("");
-
-    try {
-      const { data } = await axios.post("/api/v1/payment/process", paymentData);
-      const clientSecret = data.client_secret;
-
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: user.name,
-            email: user.email,
-            address: {
-              postal_code: shippingInfo.pinCode,
-            },
-          },
+    if (result.paymentIntent?.status === "succeeded") {
+      const order = {
+        shippingAddress: {
+          address: shippingInfo.address,
+          city: shippingInfo.city,
+          state: shippingInfo.state,
+          country: shippingInfo.country,
+          pinCode: shippingInfo.pinCode,
+          phoneNo: shippingInfo.phone,
         },
-      });
+        orderItems: cartItems.map(item => ({
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,      // ✅ FIXED
+          product: item.product,  // ✅ FIXED
+        })),
+        paidAt: Date.now(),
+        paymentInfo: {
+          id: result.paymentIntent.id,
+          status: result.paymentIntent.status,
+        },
+        itemsPrice: orderInfo.subtotal,
+        taxPrice: orderInfo.tax,
+        shippingPrice: orderInfo.shippingCharges,
+        totalPrice: orderInfo.totalPrice,
+      };
 
-      if (result.error) {
-        toast.error(result.error.message);
-        setLoading(false);
-        return;
-      }
+      await axios.post("/api/v1/order/new", order);
 
-      if (result.paymentIntent?.status === "succeeded") {
-        const order = {
-          shippingAddress: {
-            address: shippingInfo.address,
-            city: shippingInfo.city,
-            state: shippingInfo.state,
-            country: shippingInfo.country,
-            pinCode: shippingInfo.pinCode,
-            phoneNo: shippingInfo.phone,
-          },
-          orderItems: cartItems.map(item => ({
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-            image: item.images[0]?.url,
-            product: item._id,
-          })),
-          paidAt: Date.now(),
-          paymentInfo: {
-            id: result.paymentIntent.id,
-            status: result.paymentIntent.status,
-          },
-          itemsPrice: orderInfo.subtotal,
-          taxPrice: orderInfo.tax,
-          shippingPrice: orderInfo.shippingCharges,
-          totalPrice: orderInfo.totalPrice,
-        };
-
-        await axios.post("/api/v1/order/new", order);
-        dispatch(orderCompleted());
-        navigate("/success");
-      }
-    } catch (err) {
-      const errMsg = err.response?.data?.message || "Payment failed. Please try again.";
-      setError(errMsg);
-      toast.error(errMsg);
+      dispatch(orderCompleted());
+      navigate("/success");
     }
 
-    setLoading(false);
-  };
+  } catch (err) {
+    console.log(err); // ✅ DEBUG
+    const errMsg = err.response?.data?.message || "Payment failed";
+    toast.error(errMsg);
+  }
+
+  setLoading(false);
+};
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4">

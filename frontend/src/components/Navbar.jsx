@@ -1,7 +1,7 @@
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ShoppingBag, Menu, Search, ShoppingCart, User, X, ShieldCheck, ArrowRight } from "lucide-react";
-import { useSelector,useDispatch } from "react-redux";
+import { ShoppingBag, Menu, Search, ShoppingCart, User, X, ShieldCheck, ArrowRight, LogOut, UserCircle, Package } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
 import { logout, removeSuccess } from "../features/products/User/userSlice.js";
 import toast from "react-hot-toast";
 import { clearCart, getCart } from "../features/products/Cart/cartSlice.js";
@@ -9,18 +9,20 @@ import { clearCart, getCart } from "../features/products/Cart/cartSlice.js";
 const Navbar = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {isAuthenticated,user,success,message} = useSelector((state)=>state.user);
+  const { isAuthenticated, user, success, message } = useSelector((state) => state.user);
+  const { cartItems } = useSelector((state) => state.cart);
+  const cartItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {cartItems} = useSelector((state)=>state.cart);
-  const cartItemsCount = cartItems.reduce((acc,item)=> acc + item.quantity,0);
+  const location = useLocation();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if(searchQuery.trim()){
+    if (searchQuery.trim()) {
       navigate(`/products?keyword=${encodeURIComponent(searchQuery.trim())}`);
-    }else{
+    } else {
       navigate("/products");
     }
     setSearchQuery("");
@@ -28,223 +30,182 @@ const Navbar = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      dispatch(getCart()); 
+      dispatch(getCart());
     }
   }, [dispatch, isAuthenticated]);
 
-const handleLogout = () => {
-  dispatch(logout());
-  dispatch(clearCart());
-};
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(clearCart());
+    setIsProfileMenuOpen(false);
+  };
 
   useEffect(() => {
-    if(success){
+    if (success) {
       toast.success(message);
       dispatch(removeSuccess());
     }
-  }, [success,message,dispatch]);
+  }, [success, message, dispatch]);
+
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md w-full">
-      <div className="flex items-center justify-between h-16 px-4 max-w-6xl mx-auto">
-        {/* Logo */}
-        <Link
-          to="/"
-          className="flex gap-2 text-xl font-bold text-blue-600 items-center"
-        >
-          <ShoppingBag />
-          <span>Shopping | Hub</span>
-        </Link>
-
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link
-            className="text-gray-700 hover:text-blue-600 transition duration-200 font-semibold"
-            to="/"
-          >
-            Home
-          </Link>
-          <Link
-            className="text-gray-700 hover:text-blue-600 transition duration-200 font-semibold"
-            to="/products"
-          >
-            Products
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 w-full">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
+            <ShoppingBag className="w-8 h-8" />
+            <span>ShoppingHub</span>
           </Link>
 
-          <Link
-            className="text-gray-700 hover:text-blue-600 transition duration-200 font-semibold"
-            to="/contact-us"
-          >
-            Contact Me
-          </Link>
-          {isAuthenticated && user?.role === "admin" && (
-  <button
-    onClick={() => navigate('/admin/orders')}
-    className="flex items-center gap-3 px-7 py-2 bg-zinc-900 hover:bg-black border border-zinc-700 hover:border-violet-500 rounded-2xl text-white font-medium transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/20 group"
-  >
-    <ShieldCheck className="w-5 h-4 text-violet-400" />
-    <span>Admin Dashboard</span>
-    <ArrowRight className="w-5 h-4 group-hover:translate-x-1.5 transition-transform" />
-  </button>
-)}
-          
-        </div>
-
-        {/* Right Side Search Bar only on tablet and Desktop */}
-        <div className="flex items-center gap-8">
-          <form
-            onSubmit={handleSearch}
-            className="hidden sm:flex items-center hover:border-blue-600 transition duration-200 rounded-sm border border-slate-300 overflow-hidden px-2"
-          >
-            <input
-              type="text"
-              placeholder="Search Products"
-              className="focus:outline-none py-2 px-1 text-gray-400 w-40"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button
-              type="submit"
-              className="text-gray-400 hover:text-blue-600 transition duration-200"
-            >
-              <Search size={18} />
-            </button>
-          </form>
-
-          {/* Cart Icon */}
-          <Link
-            to="/cart"
-            className="relative text-gray-700 hover:text-blue-600 transition duration-200"
-          >
-            <ShoppingCart size={24} />
-            <span className={`absolute -top-2 -right-1 bg-blue-600 text-white text-xs rounded-full min-w-5 h-5 flex items-center justify-center font-semibold`}>
-              {cartItemsCount}
-            </span>
-          </Link>
-
-          {/* Register Button */}
-          {!isAuthenticated ? (
-            <div className="flex items-center gap-4">
-              <Link
-              to="/login"
-              className="flex items-center gap-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-sm hover:bg-gray-300 transition duration-200"
-            >
-              <User size={18} />
-              Login
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium">
+            <Link to="/" className={`relative py-5 transition-all hover:text-blue-600 ${isActive("/") ? "text-blue-600" : "text-gray-700"}`}>
+              Home
+              {isActive("/") && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />}
             </Link>
-              <Link
-              to="/register"
-              className="flex items-center gap-2 bg-blue-600 text-white px-2 py-1 rounded-sm hover:bg-blue-700 transition duration-200"
-            >
-              <User size={18} />
-              Register
+            <Link to="/products" className={`relative py-5 transition-all hover:text-blue-600 ${isActive("/products") ? "text-blue-600" : "text-gray-700"}`}>
+              Products
+              {isActive("/products") && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />}
             </Link>
-            </div>
-          ): (
-            <div className="relative">
-              <button onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)} className="flex items-center w-11 h-11 cursor-pointer">
-                <img src={user.avatar.url} alt={user.name} className="w-full h-full object-cover rounded-full ring-1 ring-gray-500" />
+            <Link to="/contact-us" className={`relative py-5 transition-all hover:text-blue-600 ${isActive("/contact-us") ? "text-blue-600" : "text-gray-700"}`}>
+              Contact
+              {isActive("/contact-us") && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600" />}
+            </Link>
+
+            {isAuthenticated && user?.role === "admin" && (
+              <button
+                onClick={() => navigate('/admin/orders')}
+                className="flex items-center gap-3 px-6 py-2.5 bg-zinc-900 hover:bg-black text-white font-medium rounded-2xl border border-zinc-700 hover:border-violet-500 transition-all hover:shadow-lg hover:shadow-violet-500/30"
+              >
+                <ShieldCheck className="w-5 h-5 text-violet-400" />
+                Admin Dashboard
               </button>
-              {isProfileMenuOpen && (
-                <div className="absolute top-12 right-4 bg-white shadow-lg rounded-md p-2">
-                  <div className="flex flex-col">
-                      <div className="px-4 py-2 border-b border-gray-200">
-                        <p className="font-semibold">{user?.name}</p>
-                        <p className="text-sm text-gray-500">{user?.email}</p>
-                      </div>
-                      <div>
-                          <Link
-                          to="/profile"
-                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                        >
-                          My Profile
-                        </Link>
-                        <Link
-                          to="/orders"
-                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                        >
-                          Orders
-                        </Link>
-                        <Link
-                          to="/settings"
-                          className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                        >
-                          Settings
-                        </Link>
-                      </div>
-                      <div className="border-t border-gray-200">
-                        <button
-                        onClick={()=>{
-                          handleLogout();
-                          setIsProfileMenuOpen(false);
-                        }}
-                        className="block w-full cursor-pointer px-4 py-2 text-red-600 hover:bg-red-100"
-                      >
-                        Logout
-                      </button>
-                      </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+            )}
+          </div>
 
-          {/* Mobile Navigation Links */}
-          <div className="flex md:hidden">
+          {/* Right Side */}
+          <div className="flex items-center gap-4">
+            {/* Search Bar */}
+            <form
+              onSubmit={handleSearch}
+              className="hidden sm:flex items-center bg-gray-50 border border-gray-200 focus-within:border-blue-500 rounded-3xl px-4 py-2 w-72 transition-all"
+            >
+              <input
+                type="text"
+                placeholder="Search products..."
+                className="bg-transparent outline-none text-sm flex-1 placeholder-gray-400"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="text-gray-400 hover:text-blue-600 transition-colors p-1"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+            </form>
+
+            {/* Cart */}
+            <Link to="/cart" className="relative p-3 hover:bg-gray-100 rounded-2xl transition-all group">
+              <ShoppingCart className="w-6 h-6 text-gray-700 group-hover:text-blue-600 transition-colors" />
+              {cartItemsCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  {cartItemsCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Profile Dropdown */}
+            {isAuthenticated ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                  className="w-9 h-9 rounded-2xl overflow-hidden ring-2 ring-gray-200 hover:ring-blue-400 transition-all cursor-pointer"
+                >
+                  <img src={user.avatar.url} alt={user.name} className="w-full h-full object-cover" />
+                </button>
+
+                {isProfileMenuOpen && (
+                  <div className="absolute top-14 right-0 w-72 bg-white rounded-3xl shadow-2xl border border-gray-100 py-3 z-50 overflow-hidden">
+                    {/* User Info */}
+                    <div className="px-6 py-5 border-b border-gray-100 bg-gray-50">
+                      <div className="flex items-center gap-4">
+                        <img
+                          src={user.avatar.url}
+                          alt={user.name}
+                          className="w-12 h-12 rounded-2xl object-cover ring-2 ring-white"
+                        />
+                        <div>
+                          <p className="font-semibold text-gray-900">{user.name}</p>
+                          <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="py-2">
+                      <Link
+                        to="/profile"
+                        className="flex items-center gap-4 px-6 py-3.5 text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setIsProfileMenuOpen(false)}
+                      >
+                        <UserCircle className="w-5 h-5" />
+                        <span>My Profile</span>
+                      </Link>
+                      <Link
+                        to="/orders"
+                        className="flex items-center gap-4 px-6 py-3.5 text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setIsProfileMenuOpen(false)}
+                      >
+                        <Package className="w-5 h-5" />
+                        <span>My Orders</span>
+                      </Link>
+                    </div>
+
+                    <div className="border-t border-gray-100 mx-3 my-1" />
+
+                    {/* Logout */}
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-4 w-full px-6 py-3.5 text-red-600 hover:bg-red-50 transition-colors font-medium"
+                    >
+                      <LogOut className="w-5 h-5" />
+                      <span>Logout</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link to="/login" className="px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-2xl transition-all">
+                  Login
+                </Link>
+                <Link to="/register" className="px-6 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 rounded-2xl transition-all">
+                  Register
+                </Link>
+              </div>
+            )}
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-blue-600 transition duration-200"
+              className="md:hidden p-3 hover:bg-gray-100 rounded-2xl transition-colors"
             >
-              {isMenuOpen ? <X /> : <Menu />}
+              {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
-      <div
-        className={`md:hidden overflow-hidden ${isMenuOpen ? "max-h-96 opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-5"} transition-all duration-300 ease-in-out`}
-      >
-        <div className="flex flex-col gap-4 p-4">
-          <Link
-            onClick={() => {
-              setIsMenuOpen(false);
-            }}
-            className="text-gray-700 hover:text-blue-600 transition duration-200 font-semibold"
-            to="/"
-          >
-            Home
-          </Link>
-          <Link
-            onClick={() => {
-              setIsMenuOpen(false);
-            }}
-            className="text-gray-700 hover:text-blue-600 transition duration-200 font-semibold"
-            to="/products"
-          >
-            Products
-          </Link>
-          <Link
-            onClick={() => {
-              setIsMenuOpen(false);
-            }}
-            className="text-gray-700 hover:text-blue-600 transition duration-200 font-semibold"
-            to="/contact-us"
-          >
-            Contact Us
-          </Link>
-          {isAuthenticated && user?.role === "admin" && (
-          <button
-            onClick={() => navigate('/admin/orders')}
-            className="flex items-center gap-3 px-7 py-2 bg-zinc-900 hover:bg-black border border-zinc-700 hover:border-violet-500 rounded-2xl text-white font-medium transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/20 group"
-          >
-            <ShieldCheck className="w-5 h-4 text-violet-400" />
-            <span>Admin Dashboard</span>
-            <ArrowRight className="w-5 h-4 group-hover:translate-x-1.5 transition-transform" />
-          </button>
-        )}
+      {/* Mobile Menu - Same as before (kept clean) */}
+      <div className={`md:hidden transition-all duration-300 ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}>
+        <div className="px-6 py-6 bg-white border-t space-y-6 text-lg font-medium">
+          <Link to="/" onClick={() => setIsMenuOpen(false)} className={`block py-2 ${isActive("/") ? "text-blue-600" : "text-gray-700"}`}>Home</Link>
+          <Link to="/products" onClick={() => setIsMenuOpen(false)} className={`block py-2 ${isActive("/products") ? "text-blue-600" : "text-gray-700"}`}>Products</Link>
+          <Link to="/contact-us" onClick={() => setIsMenuOpen(false)} className={`block py-2 ${isActive("/contact-us") ? "text-blue-600" : "text-gray-700"}`}>Contact</Link>
         </div>
-        
       </div>
     </nav>
   );

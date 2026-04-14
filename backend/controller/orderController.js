@@ -190,7 +190,9 @@ async function updateQuantity(productId, quantity) {
   const product = await Product.findOneAndUpdate(
     { _id: productId, stock: { $gte: quantity } },
     { $inc: { stock: -quantity } },
-    { new: true },
+    {
+    returnDocument: "after",
+  },
   );
   if (!product) {
     throw new Error("Product not found!", 404);
