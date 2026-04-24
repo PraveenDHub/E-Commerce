@@ -6,7 +6,7 @@ import PageNotFound from "./pages/PageNotFound";
 import ProductDetails from "./pages/ProductDetails";
 import Products from "./pages/Products";
 import Login from "./User/Login";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { loadUser } from "./features/products/User/userSlice.js";
 import Profile from "./User/Profile.jsx";
@@ -20,10 +20,19 @@ import { Elements } from "@stripe/react-stripe-js";
 import Payment from "./pages/Payment.jsx";
 import axios from "axios";
 import MyOrders from "./pages/MyOrders.jsx";
-import OrderDetails from "./pages/Orderdetails.jsx";
+import OrderDetails from "./pages/OrderDetails.jsx";
 import AdminOrders from "./pages/AdminOrders.jsx";
 import Unauthorized from "./components/Unauthorized.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ForgetPassword from "./User/ForgetPassword.jsx";
+import AdminProducts from "./pages/AdminProducts.jsx";
+import AdminLayout from "./components/AdminLayout.jsx";
+import ResetPassword from "./User/ResetPassword.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import CreateProduct from "./pages/CreateProduct.jsx";
+import EditProduct from "./pages/EditProduct.jsx";
+import AdminUsers from "./pages/AdminUsers.jsx";
+import AdminReviews from "./pages/AdminReviews.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,7 +45,7 @@ const App = () => {
     if (isAuthenticated) {
       dispatch(loadUser());
     }
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch]);
 
   // Fetch Stripe API Key
   useEffect(() => {
@@ -61,6 +70,8 @@ const App = () => {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/password/forget" element={<ForgetPassword />} />
+        <Route path="/reset/:token" element={<ResetPassword />} />
 
         {/* Protected User Routes */}
         <Route element={<ProtectedRoute />}>
@@ -88,10 +99,18 @@ const App = () => {
           <Route path="/success" element={<Success />} />
         </Route>
 
-        {/* Admin Only Routes */}
+        {/* Admin Routes with Layout */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-          <Route path="/admin/orders" element={<AdminOrders />} />
-          {/* Add more admin routes here */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin/products" element={<AdminProducts />} />
+            <Route path="/admin/orders" element={<AdminOrders />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/product/create" element={<CreateProduct />} />
+            <Route path="/admin/product/edit/:id" element={<EditProduct />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/reviews" element={<AdminReviews />} />
+            {/* Add more admin pages here later */}
+          </Route>
         </Route>
 
         {/* Other Routes */}

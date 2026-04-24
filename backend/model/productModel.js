@@ -17,6 +17,12 @@ const productSchema = new mongoose.Schema({
     maxLength: [7, "Price cannot exceed 7 digits"],
   },
 
+  mrp: {
+    type: Number,
+    required: [true, "Please enter MRP"],
+    maxLength: [7, "MRP cannot exceed 7 digits"],
+  },
+
   category: {
     type: String,
     required: [true, "Please enter product category"],
@@ -44,7 +50,7 @@ const productSchema = new mongoose.Schema({
     {
       public_id: {
         type: String,
-        required: [true],
+        default: null,
       },
       url: {
         type: String,
@@ -63,6 +69,10 @@ const productSchema = new mongoose.Schema({
             required: true,
           },
           name: { type: String, required: true },
+          avatar: {
+            public_id: { type: String, default: null },
+            url: { type: String },
+          },
           rating: { type: Number, required: true },
           comment: { type: String, required: true },
         },

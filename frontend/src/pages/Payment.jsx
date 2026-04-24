@@ -197,19 +197,27 @@ const handlePayment = async () => {
               )}
 
               <button
-                onClick={handlePayment}
-                disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 transition-all disabled:opacity-70"
-              >
-                {loading ? (
-                  "Processing Payment..."
-                ) : method === "card" ? (
-                  `Pay ₹${orderInfo.totalPrice?.toLocaleString("en-IN") || 0} Now`
-                ) : (
-                  `I Have Completed UPI Payment - ₹${orderInfo.totalPrice?.toLocaleString("en-IN") || 0}`
-                )}
-                <ArrowRight className="w-5 h-5" />
-              </button>
+  onClick={handlePayment}
+  disabled={loading}
+  className="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3 transition-all disabled:opacity-70"
+>
+  {loading ? (
+    <>
+      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+      <span>Processing Payment...</span>
+    </>
+  ) : method === "card" ? (
+    <>
+      <span>Pay ₹{orderInfo.totalPrice?.toLocaleString("en-IN") || 0} Now</span>
+      <ArrowRight className="w-5 h-5" />
+    </>
+  ) : (
+    <>
+      <span>I Have Completed UPI Payment - ₹{orderInfo.totalPrice?.toLocaleString("en-IN") || 0}</span>
+      <ArrowRight className="w-5 h-5" />
+    </>
+  )}
+</button>
 
               <p className="text-center text-xs text-gray-400 mt-6 flex items-center justify-center gap-1">
                 <Lock className="w-3 h-3" /> Secured by 256-bit SSL Encryption

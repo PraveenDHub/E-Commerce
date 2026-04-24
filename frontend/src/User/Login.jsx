@@ -60,6 +60,7 @@ const Login = () => {
                 <div className="space-y-2">
                     <label htmlFor="password" className="block text-sm text-gray-700 font-medium ml-1">Password</label>
                     <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}  placeholder="......." name="password" id="password" className="w-full px-4 py-3 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"/>
+                    <Link to="/password/forget" className="text-blue-600 text-xs font-semibold my-2 hover:underline">Forget Password</Link>
                 </div>
 
                 <button type="submit" className="bg-indigo-600 hover:bg-indigo-700 w-full text-white py-3 rounded-xl font-semibold shadow-lg shadow-indigo-200 active:scale-95 transition-all duration-300">Sign In</button>

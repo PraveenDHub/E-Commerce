@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
+
   const { error, success, user, isAuthenticated, loading } = useSelector(
     (state) => state.user,
   );
@@ -20,40 +21,40 @@ const UpdateProfile = () => {
   const [profile, setProfile] = useState({
     name: "",
     email: "",
-    avatar: "",
   });
+
+  // ✅ NEW (for multer)
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState("");
 
   const [isChanged, setIsChanged] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Initialize profile data
+  // Load user data
   useEffect(() => {
     if (user) {
       setProfile({
         name: user.name || "",
         email: user.email || "",
-        avatar: user.avatar?.url || "",
       });
+      setAvatarPreview(user.avatar?.url || "");
     }
   }, [user]);
 
-  // Detect changes properly
+  // Detect changes
   useEffect(() => {
     if (!user) return;
 
     const nameChanged = profile.name.trim() !== (user.name || "").trim();
     const emailChanged = profile.email.trim() !== (user.email || "").trim();
-
-    // Avatar changed if user selected a new image (base64)
-    const avatarChanged = profile.avatar.startsWith("data:");
+    const avatarChanged = avatarFile !== null;
 
     setIsChanged(nameChanged || emailChanged || avatarChanged);
-  }, [profile, user]);
+  }, [profile, avatarFile, user]);
 
-  // Handle success & error messages (Fixed double toast issue)
+  // Toast handling
   useEffect(() => {
     if (success) {
-      toast.success("Profile updated successfully!");
       dispatch(removeSuccess());
     }
     if (error) {
@@ -62,17 +63,16 @@ const UpdateProfile = () => {
     }
   }, [success, error, dispatch]);
 
+  // Avatar change
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfile((prev) => ({ ...prev, avatar: reader.result }));
-      };
-      reader.readAsDataURL(file);
+      setAvatarFile(file); // ✅ actual file
+      setAvatarPreview(URL.createObjectURL(file)); // ✅ preview
     }
   };
 
+  // Submit
   const handleUpdate = (e) => {
     e.preventDefault();
 
@@ -85,9 +85,8 @@ const UpdateProfile = () => {
     formData.set("name", profile.name);
     formData.set("email", profile.email);
 
-    // Send avatar only if new image is selected
-    if (profile.avatar.startsWith("data:")) {
-      formData.set("avatar", profile.avatar);
+    if (avatarFile) {
+      formData.set("avatar", avatarFile); // ✅ file for multer
     }
 
     dispatch(updateProfile(formData));
@@ -112,12 +111,14 @@ const UpdateProfile = () => {
             {/* Avatar */}
             <div className="relative w-32 h-32 mx-auto mb-10">
               <div className="w-full h-full rounded-full border-4 border-white shadow-lg overflow-hidden ring-4 ring-slate-100">
+                {/* ✅ changed ONLY this line */}
                 <img
-                  src={profile.avatar}
+                  src={avatarPreview}
                   alt="Profile Preview"
                   className="w-full h-full object-cover"
                 />
               </div>
+
               <input
                 type="file"
                 className="hidden"
@@ -125,6 +126,7 @@ const UpdateProfile = () => {
                 accept="image/*"
                 onChange={handleAvatarChange}
               />
+
               <button
                 type="button"
                 onClick={() => fileInputRef.current.click()}
@@ -166,16 +168,23 @@ const UpdateProfile = () => {
 
             {/* Submit Button */}
             <div className="pt-4">
-              <button 
+              <button
                 type="submit"
                 disabled={!isChanged || loading}
-                className={`w-full font-bold py-4 rounded-xl shadow-lg transition-all active:scale-[0.98]
-                  ${isChanged && !loading
-                    ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-200" 
-                    : "bg-gray-300 text-gray-500 cursor-not-allowed"}
-                `}
+                className={`w-full font-bold py-4 rounded-xl shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2 ${
+                  isChanged && !loading
+                    ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-200"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
               >
-                {loading ? "Updating..." : "Save Changes"}
+                {loading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+                    <span>Updating...</span>
+                  </>
+                ) : (
+                  "Save Changes"
+                )}
               </button>
             </div>
           </form>

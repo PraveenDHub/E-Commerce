@@ -49,6 +49,72 @@ export const createReview = createAsyncThunk(
   },
 );
 
+// 🔥 GET ALL PRODUCTS (ADMIN)
+export const getAdminProducts = createAsyncThunk(
+  "product/getAdminProducts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get("/api/v1/admin/products");
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to fetch products",
+      );
+    }
+  },
+);
+
+// 🔥 CREATE PRODUCT
+export const createProduct = createAsyncThunk(
+  "product/createProduct",
+  async ({formData}, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        "/api/v1/admin/product/create",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Create failed");
+    }
+  },
+);
+
+// 🔥 UPDATE PRODUCT
+export const updateProduct = createAsyncThunk(
+  "product/updateProduct",
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(
+        `/api/v1/admin/product/${id}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Update failed");
+    }
+  },
+);
+
+// 🔥 DELETE PRODUCT
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Delete failed");
+    }
+  },
+);
+
 //create slice
 const productSlice = createSlice({
   name: "product",
@@ -115,13 +181,58 @@ const productSlice = createSlice({
       .addCase(createReview.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.product = action.payload.product;
         state.success = true;
         state.message = action.payload?.message;
+        state.product = action.payload.product;
       })
       .addCase(createReview.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Something went wrong";
+      })
+
+      // ADMIN GET
+      .addCase(getAdminProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.products = action.payload?.products;
+      })
+
+      // CREATE (optimistic)
+      .addCase(createProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.message = action.payload?.message;
+        state.products.unshift(action.payload?.product); // 🚀 add instantly
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Something went wrong";
+      })
+
+      // UPDATE (optimistic)
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.success = true;
+        state.message = action.payload?.message;
+
+        const index = state.products.findIndex(
+          (p) => p._id === action.payload?.product?._id,
+        );
+        if (index !== -1) {
+          state.products[index] = action.payload?.product;
+        }
+      })
+
+      // DELETE (optimistic)
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.success = true;
+        state.message = action.payload?.message;
+
+        state.products = state.products.filter(
+          (p) => p._id !== action.payload?.id,
+        );
       });
   },
 });

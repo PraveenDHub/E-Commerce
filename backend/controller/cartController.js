@@ -5,17 +5,30 @@ export const getCart = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate(
       "cartItems.product",
-      "name price images stock",
+      "name price images stock"
     );
+
     if (!user) {
-      return res
-        .status(404)
-        .json({ message: "User not found Sorry! Could not get your cart" });
+      return res.status(404).json({
+        message: "User not found Sorry! Could not get your cart",
+      });
+    }
+
+    // 🔥 REMOVE DELETED PRODUCTS
+    const validCartItems = user.cartItems.filter(
+      (item) => item.product !== null
+    );
+
+    // 👉 If something was removed, update DB
+    if (validCartItems.length !== user.cartItems.length) {
+      user.cartItems = user.cartItems.filter(item => item.product !== null);
+
+      await user.save();
     }
 
     res.status(200).json({
       success: true,
-      cartItems: user.cartItems,
+      cartItems: validCartItems,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -54,7 +67,7 @@ export const addToCart = async (req, res) => {
     const product = await Product.findById(productId);
 
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({ message: "Product not found Or This product was removed by admin" });
     }
 
     const itemIndex = user.cartItems.findIndex(
@@ -114,17 +127,31 @@ export const updateCartItem = async (req, res) => {
     const user = await User.findById(req.user.id);
 
     const item = user.cartItems.find(
-      (item) => item.product.toString() === productId,
+      (item) => item.product.toString() === productId
     );
 
     if (!item) {
       return res.status(404).json({ message: "Item not found in cart" });
     }
 
-    if (quantity <= 0) {
-      // ❌ Remove item if qty 0
+    // 🔥 CHECK IF PRODUCT STILL EXISTS
+    const product = await Product.findById(productId);
+    if (!product) {
+      // remove it automatically
       user.cartItems = user.cartItems.filter(
-        (i) => i.product.toString() !== productId,
+        (i) => i.product.toString() !== productId
+      );
+      await user.save();
+
+      return res.status(404).json({
+        success: false,
+        message: "Product no longer exists. Removed from cart.",
+      });
+    }
+
+    if (quantity <= 0) {
+      user.cartItems = user.cartItems.filter(
+        (i) => i.product.toString() !== productId
       );
     } else {
       item.quantity = quantity;

@@ -8,7 +8,10 @@ import { getCart } from "../features/products/Cart/cartSlice.js";
 
 const CartPage = () => {
   const { cartItems, totalAmount } = useSelector((state) => state.cart);
-  const cartItemsCount = cartItems.reduce( (acc, item) => acc + item.quantity, 0 );
+  const cartItemsCount = cartItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,9 +34,11 @@ const CartPage = () => {
                   Cart items
                 </h3>
                 <div className="pr-2 custom-scrollbar max-h-[400px] overflow-y-auto space-y-1">
-                  {cartItems.map((item) => (
-                    <CartItem key={item.product?._id || item._id} item={item} />
-                  ))}
+                  {cartItems
+                    .filter((item) => item.product !== null)
+                    .map((item) => (
+                      <CartItem key={item.product._id} item={item} />
+                    ))}
                 </div>
               </div>
 
