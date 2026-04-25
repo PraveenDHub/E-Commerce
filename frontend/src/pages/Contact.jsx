@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Clock, Send, Linkedin, Github } from "lucide-react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import API from "../api/api";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      await axios.post("/api/v1/contact", formData);
+      await API.post("/api/v1/contact", formData);
       toast.success("Message sent successfully! I'll reply soon.");
       setFormData({
         name: "",

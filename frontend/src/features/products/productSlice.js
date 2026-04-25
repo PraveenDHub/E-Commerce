@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../../api/api";
 
 export const getProducts = createAsyncThunk(
   "product/getProducts",
@@ -15,7 +15,7 @@ export const getProducts = createAsyncThunk(
       if (category) {
         link += `&category=${encodeURIComponent(category)}`;
       }
-      const { data } = await axios.get(link);
+      const { data } = await API.get(link);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
@@ -28,7 +28,7 @@ export const getProductDetails = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const link = `/api/v1/product/${id}`;
-      const { data } = await axios.get(link);
+      const { data } = await API.get(link);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
@@ -41,7 +41,7 @@ export const createReview = createAsyncThunk(
   async ({ productId, rating, comment }, { rejectWithValue }) => {
     try {
       const link = `/api/v1/review`;
-      const { data } = await axios.put(link, { productId, rating, comment });
+      const { data } = await API.put(link, { productId, rating, comment });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
@@ -54,7 +54,7 @@ export const getAdminProducts = createAsyncThunk(
   "product/getAdminProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/admin/products");
+      const { data } = await API.get("/api/v1/admin/products");
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -69,7 +69,7 @@ export const createProduct = createAsyncThunk(
   "product/createProduct",
   async ({formData}, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
+      const { data } = await API.post(
         "/api/v1/admin/product/create",
         formData,
         {
@@ -88,7 +88,7 @@ export const updateProduct = createAsyncThunk(
   "product/updateProduct",
   async ({ id, formData }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
+      const { data } = await API.put(
         `/api/v1/admin/product/${id}`,
         formData,
         {
@@ -107,7 +107,7 @@ export const deleteProduct = createAsyncThunk(
   "product/deleteProduct",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+      const { data } = await API.delete(`/api/v1/admin/product/${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Delete failed");

@@ -114,7 +114,8 @@ export const forgetPassword = async (req, res, next) => {
   }
 
   //  this is for frontend url Need to change later
-  const resetUrl = `http://localhost:5173/reset/${resetToken}`;
+  
+  const resetUrl = `${process.env.FRONTEND_URL}/reset/${resetToken}`;
 
   const message = `Reset your password using this link below:\n\n${resetUrl}\n\n The link expires in 30 minutes. \n\n If this wasn't you, please ignore this mail!`;
   const htmlMessage = `

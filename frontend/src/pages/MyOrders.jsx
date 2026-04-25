@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyOrders } from "../features/products/orderSlice.js";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../api/api";
 import toast from "react-hot-toast";
 import { Package, Eye, Calendar, XCircle } from "lucide-react";
 import { motion } from "framer-motion";
@@ -30,7 +30,7 @@ const MyOrders = () => {
   const handleCancel = async (id, e) => {
     e.stopPropagation();
     try {
-      await axios.patch(`/api/v1/order/${id}/cancel`);
+      await API.patch(`/api/v1/order/${id}/cancel`);
       toast.success("Order cancelled successfully");
       dispatch(getMyOrders());
     } catch (err) {

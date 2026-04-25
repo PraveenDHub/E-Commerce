@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import API from "../api/api";
 import OrderTimeline from "../components/OrderTimeline.jsx";
 import { motion } from "framer-motion";
 import { MapPin, Package, Calendar, CreditCard } from "lucide-react";
@@ -11,7 +11,7 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const fetchOrder = async () => {
-      const { data } = await axios.get(`/api/v1/order/${id}`);
+      const { data } = await API.get(`/api/v1/order/${id}`);
       setOrder(data.order);
     };
     fetchOrder();

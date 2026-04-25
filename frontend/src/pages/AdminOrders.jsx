@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api/api";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -15,7 +15,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const { data } = await axios.get("/api/v1/admin/orders");
+      const { data } = await API.get("/api/v1/admin/orders");
 
       const formatted = data.orders.map((order) => ({
         _id: order._id,
@@ -38,7 +38,7 @@ const AdminOrders = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`/api/v1/admin/order/${id}`, { status });
+      await API.put(`/api/v1/admin/order/${id}`, { status });
       toast.success("Status updated");
       fetchOrders();
     } catch (err) {
@@ -85,7 +85,7 @@ const AdminOrders = () => {
             onClick={async () => {
               toast.dismiss(t.id);
               try {
-                await axios.delete(`/api/v1/admin/order/${id}`);
+                await API.delete(`/api/v1/admin/order/${id}`);
                 toast.success("Order deleted");
                 fetchOrders();
               } catch (err) {

@@ -1,5 +1,6 @@
 import "./config/dotenv.js";
 import express from "express";
+import cors from "cors";
 import productRoutes from "./routes/productRoutes.js";
 import errorMiddleware from "./middleware/error.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -10,6 +11,11 @@ import cartRoutes from "./routes/cartRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 
 const app = express();
+
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}));
 
 // Middleware
 app.use(express.json({ limit: "10mb" }));

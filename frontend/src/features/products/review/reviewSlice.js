@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../../../api/api";
 
 // GET all reviews across all products (admin)
 // matches: GET /api/v1/admin/reviews
@@ -7,7 +7,7 @@ export const getAllReviews = createAsyncThunk(
   "review/getAllReviews",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/v1/admin/reviews");
+      const response = await API.get("/api/v1/admin/reviews");
       return response.data; // { success, reviews: [...] }
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to load reviews!");
@@ -21,7 +21,7 @@ export const deleteReview = createAsyncThunk(
   "review/deleteReview",
   async ({ productId, reviewId }, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(
+      const response = await API.delete(
         `/api/v1/admin/review?productId=${productId}&reviewId=${reviewId}`,
       );
       return response.data; // { success, message }

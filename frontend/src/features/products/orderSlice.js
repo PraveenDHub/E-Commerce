@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../../api/api";
 
 export const getMyOrders = createAsyncThunk(
   "order/myOrders",
   async (_, {rejectWithValue}) => {
     try {
-      const { data } = await axios.get("/api/v1/orders/user");
+      const { data } = await API.get("/api/v1/orders/user");
       return data.orders;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -16,7 +16,7 @@ export const getMyOrders = createAsyncThunk(
 export const getOrderDetails = createAsyncThunk(
   "order/details",
   async (id) => {
-    const { data } = await axios.get(`/api/v1/order/${id}`);
+    const { data } = await API.get(`/api/v1/order/${id}`);
     return data.order;
   }
 );

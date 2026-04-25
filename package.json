@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
+    "seeder": "node backend/utils/seeder.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.9.0",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
     "crypto": "^1.0.1",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",

@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../../../api/api";
 
 //register
 export const register = createAsyncThunk(
   "user/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/v1/register", userData, {
+      const response = await API.post("/api/v1/register", userData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return response.data;
@@ -21,7 +21,7 @@ export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/v1/profile");
+      const response = await API.get("/api/v1/profile");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to load user!");
@@ -34,7 +34,7 @@ export const login = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await API.post(
         "/api/v1/login",
         { email, password },
         { headers: { "Content-Type": "application/json" } },
@@ -51,7 +51,7 @@ export const logout = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/v1/logout");
+      const response = await API.get("/api/v1/logout");
       localStorage.clear();
       sessionStorage.clear();
       return response.data;
@@ -66,7 +66,7 @@ export const updateProfile = createAsyncThunk(
   "user/updateProfile",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.put("/api/v1/profile/update", userData, {
+      const response = await API.put("/api/v1/profile/update", userData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return response.data;
@@ -80,7 +80,7 @@ export const forgetPassword = createAsyncThunk(
   "user/forgetPassword",
   async ({ email }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await API.post(
         "/api/v1/password/forget",
         { email },
         { headers: { "Content-Type": "application/json" } },
@@ -96,7 +96,7 @@ export const resetPassword = createAsyncThunk(
   "user/resetPassword",
   async ({ token, data }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`/api/v1/reset/${token}`, data, {
+      const response = await API.post(`/api/v1/reset/${token}`, data, {
         headers: { "Content-Type": "application/json" },
       });
       return response.data;
@@ -112,7 +112,7 @@ export const getAllUsers = createAsyncThunk(
   "user/getAllUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/v1/admin/users");
+      const response = await API.get("/api/v1/admin/users");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to load users!");
@@ -124,7 +124,7 @@ export const updateUserRole = createAsyncThunk(
   "user/updateUserRole",
   async ({ id, role }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(
+      const response = await API.put(
         `/api/v1/admin/user/${id}`,
         { role },
         { headers: { "Content-Type": "application/json" } },
@@ -142,7 +142,7 @@ export const deleteUser = createAsyncThunk(
   "user/deleteUser",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`/api/v1/admin/user/${id}`);
+      const response = await API.delete(`/api/v1/admin/user/${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to delete user!");

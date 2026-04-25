@@ -2,7 +2,7 @@ import CheckoutSteps from "../components/CheckoutSteps.jsx";
 import { useEffect, useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { QRCodeCanvas } from "qrcode.react";
-import axios from "axios";
+import API from "../api/api";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -65,7 +65,7 @@ const handlePayment = async () => {
   setError("");
 
   try {
-    const { data } = await axios.post("/api/v1/payment/process", paymentData);
+    const { data } = await API.post("/api/v1/payment/process", paymentData);
 
     const result = await stripe.confirmCardPayment(data.client_secret, {
       payment_method: {
@@ -112,7 +112,7 @@ const handlePayment = async () => {
         totalPrice: orderInfo.totalPrice,
       };
 
-      await axios.post("/api/v1/order/new", order);
+      await API.post("/api/v1/order/new", order);
 
       dispatch(orderCompleted());
       navigate("/success");

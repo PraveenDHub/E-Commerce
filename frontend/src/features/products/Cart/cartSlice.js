@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { logout } from "../User/userSlice.js";
-import axios from "axios";
+import API from "../../../api/api";
 
 // 🔥 Helper function
 const calculateTotal = (cartItems) => {
@@ -11,7 +11,7 @@ export const getCart = createAsyncThunk(
   "cart/getCart",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("/api/v1/cart");
+      const response = await API.get("/api/v1/cart");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data);
@@ -24,7 +24,7 @@ export const addToCartAPI = createAsyncThunk(
   "cart/addToCart",
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post("/api/v1/cart", {
+      const { data } = await API.post("/api/v1/cart", {
         productId,
         quantity,
       })
@@ -39,7 +39,7 @@ export const updateCartAPI = createAsyncThunk(
   "cart/updateCart",
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put("/api/v1/cart", {
+      const { data } = await API.put("/api/v1/cart", {
         productId,
         quantity,
       });
@@ -54,7 +54,7 @@ export const removeCartAPI = createAsyncThunk(
   "cart/removeCart",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/api/v1/cart/${productId}`);
+      const { data } = await API.delete(`/api/v1/cart/${productId}`);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data);
@@ -66,7 +66,7 @@ export const clearCartAPI = createAsyncThunk(
   "cart/clearCart",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete("/api/v1/cart"); // 👈 endpoint
+      const { data } = await API.delete("/api/v1/cart"); // 👈 endpoint
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data);

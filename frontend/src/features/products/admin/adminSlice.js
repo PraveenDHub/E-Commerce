@@ -1,13 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../../../api/api";
 
 export const fetchDashboard = createAsyncThunk(
   "admin/fetchDashboard",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/admin/dashboard", {
-        withCredentials: true,
-      });
+      const { data } = await API.get("/api/v1/admin/dashboard");
       return data.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
