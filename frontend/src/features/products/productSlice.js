@@ -41,7 +41,9 @@ export const createReview = createAsyncThunk(
   async ({ productId, rating, comment }, { rejectWithValue }) => {
     try {
       const link = `/api/v1/review`;
-      const { data } = await API.put(link, { productId, rating, comment });
+      const { data } = await API.put(link, { productId, rating, comment }, {
+        withCredentials: true
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Something went wrong");
