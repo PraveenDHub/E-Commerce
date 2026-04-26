@@ -56,6 +56,7 @@ export const logout = createAsyncThunk(
       sessionStorage.clear();
       return response.data;
     } catch (error) {
+      localStorage.removeItem("token");
       return rejectWithValue(error.response?.data || "Logout failed!");
     }
   },
@@ -192,6 +193,9 @@ const userSlice = createSlice({
         state.isAuthenticated = Boolean(action.payload?.user);
         localStorage.setItem("user", JSON.stringify(state.user));
         localStorage.setItem("isAuthenticated", JSON.stringify(state.isAuthenticated));
+        if (action.payload?.token) {
+          localStorage.setItem("token", action.payload.token);
+        }
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -243,6 +247,9 @@ const userSlice = createSlice({
         state.isAuthenticated = Boolean(action.payload?.user);
         localStorage.setItem("user", JSON.stringify(state.user));
         localStorage.setItem("isAuthenticated", JSON.stringify(state.isAuthenticated));
+        if (action.payload?.token) {
+          localStorage.setItem("token", action.payload.token);
+        }
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -269,6 +276,7 @@ const userSlice = createSlice({
         state.isAuthenticated = false;
         localStorage.removeItem("user");
         localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("token");
       })
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;

@@ -90,7 +90,7 @@ export const addProducts = async (req, res) => {
 export const getAllProducts = async (req, res, next) => {
   try {
     //const products = await Product.find();
-    const resPerPage = 4;
+    const resPerPage = 12;
     const apiHelper = new APIHelper(Product.find(), req.query)
       .filter()
       .search();

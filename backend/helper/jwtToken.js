@@ -18,5 +18,6 @@ export const sendToken = (user, statusCode, res, customMessage=null) => {
                 ? "User registered successfully!"
                 : "User logged in successfully!"),
         user,
+        token,
     });
 };
